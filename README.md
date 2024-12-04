@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
+# Shopping cart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Quick excercise for TOP
+(React + TypeScript + Vite // Vitest, React Testing Library, React Router)
 
-Currently, two official plugins are available:
+## Basick app sketch
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+elementos funcionales de programación
+(vitest)
 
-## Expanding the ESLint configuration
+- fetcher
+- inventario tienda
+  - cargar los elementos
+  - filtrar los elementos
+  - ordenar los elementos
+- inventario carrito
+  - añadir elementos
+  - editar cantidad de los elementos
+  - quitar los elementos
+  - resetear
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+items: [FakeStore API](https://fakestoreapi.com/)
 
-- Configure the top-level `parserOptions` property like this:
+estructura navegación del carrito
+(react testing library)
+(react router)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Barra de navegacion
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- enlace landing
+- enlace vitrina
+- enlace carrito (muestra el estado del carrito)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+landing
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- sobre la tineda
+- algunos productos promo
+- agregar productos promo al carrito
+
+vitrina
+
+- barra de búsqueda
+- árbol de categorías ?
+- ordenado de productos
+- tabla de tarjetas minificadas
+  - nombre
+  - agregar al carrito
+  - Abrir tarjeta expandida del producto
+- tarjeta expandida de producto
+  - nombre
+  - descripción
+  - precio
+  - cantidad (input texto, botones + y -)
+  - agregar al carrito
+
+shopping
+
+- editar productos y cantidades del carrito
+- listado de la compra
+- calculadora de precio
+- checkout

@@ -1,7 +1,6 @@
-import { describe, it, vi, expect, expectTypeOf, beforeEach } from 'vitest';
+import { describe, it, vi, expect, beforeEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import { makeFetchUrl, useFetch } from '../useFetch.tsx';
-import { act } from 'react';
 
 const mockFetch = vi.fn();
 globalThis.fetch = mockFetch;
@@ -117,6 +116,37 @@ describe('useFetch:', () => {
                 expect(messageRegex.test(message)).toBe(true);
             }
         }
-        //
+    });
+
+    it('returns an array if useFetcher is 200 and has no arrguments', async () => {
+        mockFetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => mockedCategoriesData,
+        });
+        const { result } = renderHook(() => useFetch(makeFetchUrl()));
+
+        expect(result.current.data).toBe(null);
+
+        await waitFor(() => {
+            expect(result.current.data).not.toBe(null);
+        });
+
+        expect(result.current.data).toStrictEqual(mockedCategoriesData);
+    });
+
+    it('returns an array of product objects if useFetcher is 200 and has arguments', async () => {
+        mockFetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => mockedCategoriesData,
+        });
+        const { result } = renderHook(() => useFetch(makeFetchUrl()));
+
+        expect(result.current.data).toBe(null);
+
+        await waitFor(() => {
+            expect(result.current.data).not.toBe(null);
+        });
+
+        expect(result.current.data).toStrictEqual(mockedCategoriesData);
     });
 });

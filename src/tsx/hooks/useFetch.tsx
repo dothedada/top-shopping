@@ -15,7 +15,7 @@ interface ProductData {
     description: string;
 }
 
-type ErrorState = [boolean, string] | null;
+type ErrorState = [true, string] | null;
 
 interface FetchError {
     code: number | 'unknown';
@@ -24,11 +24,11 @@ interface FetchError {
 
 type FetchReturn = {
     onLoad: boolean;
-    data: DataFetched | null;
-    onError: ErrorState | null;
+    data: DataFetched;
+    onError: ErrorState;
 };
 
-type DataFetched = ProductData[] | ProductCategories;
+type DataFetched = ProductData[] | ProductCategories | null;
 
 const baseUrl = 'https://fakestoreapi.in/api/products' as const;
 const makeFetchUrl = (category: string = ''): ApiUrl => {
@@ -39,6 +39,7 @@ const makeFetchUrl = (category: string = ''): ApiUrl => {
 const useFetch = (url: ApiUrl): FetchReturn => {
     const [onLoad, setOnLoad] = useState(false);
     const [onError, setOnError] = useState<ErrorState>(null);
+    const [data, setData] = useState<DataFetched>(null);
 
     useEffect(() => {
         const fetcher = async () => {
@@ -53,6 +54,13 @@ const useFetch = (url: ApiUrl): FetchReturn => {
                         description: errors,
                     } as FetchError;
                 }
+
+                const data = await response.json();
+
+                if (Array.isArray(data)) {
+                    console.log(data);
+                    setData(data);
+                }
             } catch (err) {
                 const { code = 'unknown', description = 'unknown' } =
                     err as FetchError;
@@ -64,7 +72,7 @@ const useFetch = (url: ApiUrl): FetchReturn => {
         };
         fetcher();
     }, [url]);
-    return { data: null, onError, onLoad };
+    return { data, onError, onLoad };
 };
 
 export { makeFetchUrl, useFetch };

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 type CategoryPath = '/category' | `/category?type=${string}`;
 type ApiUrl = `${typeof baseUrl}${CategoryPath}`;
 type ProductCategories = string[];
@@ -35,7 +37,25 @@ const makeFetchUrl = (category: string = ''): ApiUrl => {
 };
 
 const useFetch = (url: ApiUrl): FetchReturn => {
-    return { data: null, onError: null, onLoad: false };
+    const [onLoad, setOnLoad] = useState(false);
+
+    useEffect(() => {
+        const fetcher = async () => {
+            try {
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('Cannot fetch the data');
+                }
+            } catch (err) {
+                // console.log(err);
+            } finally {
+                setOnLoad(true);
+            }
+        };
+        fetcher();
+    }, [url]);
+    return { data: null, onError: null, onLoad };
 };
 
 export { makeFetchUrl, useFetch };

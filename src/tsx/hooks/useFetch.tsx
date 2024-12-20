@@ -7,12 +7,10 @@ type ProductCategories = string[];
 interface ProductData {
     id: number;
     title: string;
-    model: string;
-    image: string;
     price: number;
-    brand: string;
-    onSale: boolean;
     description: string;
+    image: string;
+    category: string;
 }
 
 type ErrorState = [true, string] | null;
@@ -23,7 +21,7 @@ interface FetchError {
 }
 
 type FetchReturn = {
-    onLoad: boolean;
+    loaded: boolean;
     data: DataFetched;
     onError: ErrorState;
 };
@@ -37,14 +35,18 @@ const makeFetchUrl = (category: string = ''): ApiUrl => {
 };
 
 const useFetch = (url: ApiUrl): FetchReturn => {
-    const [onLoad, setOnLoad] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const [onError, setOnError] = useState<ErrorState>(null);
     const [data, setData] = useState<DataFetched>(null);
 
     useEffect(() => {
+        const controller = new AbortController();
         const fetcher = async () => {
             try {
-                const response = await fetch(url);
+                const response = await fetch(url, {
+                    mode: 'cors',
+                    signal: controller.signal,
+                });
 
                 if (!response.ok) {
                     const { errors } = await response.json();
@@ -57,9 +59,21 @@ const useFetch = (url: ApiUrl): FetchReturn => {
 
                 const data = await response.json();
 
-                if (Array.isArray(data)) {
-                    console.log(data);
+                if (!data[0].id) {
                     setData(data);
+                } else {
+                    setData(
+                        data.map(
+                            (item: Record<string, string>): ProductData => ({
+                                id: +item.id,
+                                title: item.title,
+                                price: +item.price,
+                                description: item.description,
+                                image: item.image,
+                                category: item.category,
+                            }),
+                        ),
+                    );
                 }
             } catch (err) {
                 const { code = 'unknown', description = 'unknown' } =
@@ -67,12 +81,14 @@ const useFetch = (url: ApiUrl): FetchReturn => {
                 const errPrompt = `Error ${code}: ${description}`;
                 setOnError([true, errPrompt]);
             } finally {
-                setOnLoad(true);
+                setLoaded(true);
             }
         };
         fetcher();
+
+        return () => controller.abort();
     }, [url]);
-    return { data, onError, onLoad };
+    return { data, onError, loaded };
 };
 
 export { makeFetchUrl, useFetch };

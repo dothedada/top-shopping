@@ -67,7 +67,7 @@ describe('useFetch:', () => {
         }
     });
 
-    it('sets the value of onLoad from false to true once the fetch is done, regardless the response from the api', async () => {
+    it('change the value of onLoad from false to true once the fetch is done', async () => {
         for (let i = 0; i < 5; i++) {
             mockFetch.mockResolvedValueOnce({
                 ok: Boolean(Math.floor(Math.random() * 2)),
@@ -81,5 +81,42 @@ describe('useFetch:', () => {
                 expect(result.current.onLoad).toBe(true);
             });
         }
+    });
+
+    it('returns onError = [true, "Error <code>: <message>"] if response not ok', async () => {
+        const commonFetchErrors = [
+            [400, 'Bad Request...'],
+            [401, 'Unauthorized...'],
+            [403, 'Forbidden...'],
+            [404, 'Not Found...'],
+            [500, 'Internal Server Error...'],
+        ];
+
+        for (const [errorCode, errorMsg] of commonFetchErrors) {
+            mockFetch.mockResolvedValueOnce({
+                ok: false,
+                status: errorCode,
+                json: async () => ({ errors: errorMsg }),
+            });
+
+            const { result } = renderHook(() => useFetch(makeFetchUrl()));
+
+            expect(result.current.onError).toBe(null);
+
+            await waitFor(() => {
+                expect(result.current.onError).not.toBe(null);
+            });
+
+            if (result.current.onError) {
+                const [isError, message] = result.current.onError;
+                expect(isError).toBe(true);
+                const messageRegex = new RegExp(
+                    `Error ${errorCode}: ${errorMsg}`,
+                    'g',
+                );
+                expect(messageRegex.test(message)).toBe(true);
+            }
+        }
+        //
     });
 });

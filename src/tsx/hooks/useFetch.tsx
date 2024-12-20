@@ -17,10 +17,10 @@ interface ProductData {
 
 type ErrorState = [boolean, string] | null;
 
-// interface FetchError {
-//     code: number | 'unknown';
-//     description: string[];
-// }
+interface FetchError {
+    code: number | 'unknown';
+    description: string[];
+}
 
 type FetchReturn = {
     onLoad: boolean;
@@ -38,6 +38,7 @@ const makeFetchUrl = (category: string = ''): ApiUrl => {
 
 const useFetch = (url: ApiUrl): FetchReturn => {
     const [onLoad, setOnLoad] = useState(false);
+    const [onError, setOnError] = useState<ErrorState>(null);
 
     useEffect(() => {
         const fetcher = async () => {
@@ -45,17 +46,25 @@ const useFetch = (url: ApiUrl): FetchReturn => {
                 const response = await fetch(url);
 
                 if (!response.ok) {
-                    throw new Error('Cannot fetch the data');
+                    const { errors } = await response.json();
+
+                    throw {
+                        code: response.status,
+                        description: errors,
+                    } as FetchError;
                 }
             } catch (err) {
-                // console.log(err);
+                const { code = 'unknown', description = 'unknown' } =
+                    err as FetchError;
+                const errPrompt = `Error ${code}: ${description}`;
+                setOnError([true, errPrompt]);
             } finally {
                 setOnLoad(true);
             }
         };
         fetcher();
     }, [url]);
-    return { data: null, onError: null, onLoad };
+    return { data: null, onError, onLoad };
 };
 
 export { makeFetchUrl, useFetch };

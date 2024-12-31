@@ -1,17 +1,8 @@
 import { useEffect, useState } from 'react';
+import { ProductData, ProductCategories } from '../types/global';
 
 type CategoryPath = '/category' | `/category?type=${string}`;
 type ApiUrl = `${typeof baseUrl}${CategoryPath}`;
-type ProductCategories = string[];
-
-interface ProductData {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    image: string;
-    category: string;
-}
 
 type ErrorState = [true, string] | null;
 
@@ -34,6 +25,54 @@ const makeFetchUrl = (category: string = ''): ApiUrl => {
     return `${baseUrl}${categoryName as CategoryPath}`;
 };
 
+const fetcher = async (
+    url: string,
+    controller: AbortController,
+): Promise<FetchReturn> => {
+    let loaded: boolean = false;
+    let onError: ErrorState = null;
+    let data: DataFetched = null;
+
+    try {
+        const response = await fetch(url, {
+            mode: 'cors',
+            signal: controller.signal,
+        });
+
+        if (!response.ok) {
+            const { errors } = await response.json();
+
+            throw {
+                code: response.status,
+                description: errors,
+            } as FetchError;
+        }
+
+        const dataFetched = await response.json();
+
+        data = !dataFetched[0]?.id
+            ? dataFetched
+            : dataFetched.map(
+                  (item: Record<string, string>): ProductData => ({
+                      id: +item.id,
+                      title: item.title,
+                      price: +item.price,
+                      description: item.description,
+                      image: item.image,
+                      category: item.category,
+                  }),
+              );
+    } catch (err) {
+        const { code = 'unknown', description = 'unknown' } = err as FetchError;
+        const errPrompt = `Error ${code}: ${description}`;
+        onError = [true, errPrompt];
+    } finally {
+        loaded = true;
+    }
+
+    return { loaded, onError, data };
+};
+
 const useFetch = (url: ApiUrl): FetchReturn => {
     const [loaded, setLoaded] = useState(false);
     const [onError, setOnError] = useState<ErrorState>(null);
@@ -41,54 +80,16 @@ const useFetch = (url: ApiUrl): FetchReturn => {
 
     useEffect(() => {
         const controller = new AbortController();
-        const fetcher = async () => {
-            try {
-                const response = await fetch(url, {
-                    mode: 'cors',
-                    signal: controller.signal,
-                });
 
-                if (!response.ok) {
-                    const { errors } = await response.json();
-
-                    throw {
-                        code: response.status,
-                        description: errors,
-                    } as FetchError;
-                }
-
-                const data = await response.json();
-
-                if (!data[0].id) {
-                    setData(data);
-                } else {
-                    setData(
-                        data.map(
-                            (item: Record<string, string>): ProductData => ({
-                                id: +item.id,
-                                title: item.title,
-                                price: +item.price,
-                                description: item.description,
-                                image: item.image,
-                                category: item.category,
-                            }),
-                        ),
-                    );
-                }
-            } catch (err) {
-                const { code = 'unknown', description = 'unknown' } =
-                    err as FetchError;
-                const errPrompt = `Error ${code}: ${description}`;
-                setOnError([true, errPrompt]);
-            } finally {
-                setLoaded(true);
-            }
-        };
-        fetcher();
+        fetcher(url, controller).then(({ loaded, onError, data }) => {
+            setLoaded(loaded);
+            setOnError(onError);
+            setData(data);
+        });
 
         return () => controller.abort();
     }, [url]);
     return { data, onError, loaded };
 };
 
-export { makeFetchUrl, useFetch, ProductData };
+export { makeFetchUrl, useFetch };

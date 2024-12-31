@@ -19,6 +19,15 @@ const makeFetchUrl = (
     return `${baseUrl}${limit && !category ? amountLimit : `${categoryName}${amountLimit}`}` as CategoryPath;
 };
 
+const itemBuilder = (item: Record<string, string>): ProductData => ({
+    id: +item.id,
+    title: item.title,
+    price: +item.price,
+    description: item.description,
+    image: item.image,
+    category: item.category,
+});
+
 const fetcher = async (
     url: ApiUrl,
     controller: AbortController,
@@ -44,18 +53,7 @@ const fetcher = async (
 
         const dataFetched = await response.json();
 
-        data = !dataFetched[0]?.id
-            ? dataFetched
-            : dataFetched.map(
-                  (item: Record<string, string>): ProductData => ({
-                      id: +item.id,
-                      title: item.title,
-                      price: +item.price,
-                      description: item.description,
-                      image: item.image,
-                      category: item.category,
-                  }),
-              );
+        data = !dataFetched[0]?.id ? dataFetched : dataFetched.map(itemBuilder);
     } catch (err) {
         const { code = 'unknown', description = 'unknown' } = err as FetchError;
         const errPrompt = `Error ${code}: ${description}`;

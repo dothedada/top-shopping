@@ -10,6 +10,7 @@ elementos funcionales de programación
 
 - ~~fetcher \_realizar testeo~~
 - inventario tienda
+    - ~~Caraga inicial de elementos y categorias ~~
     - cargar los elementos
     - filtrar los elementos
     - ordenar los elementos

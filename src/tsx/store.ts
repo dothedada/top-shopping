@@ -42,6 +42,7 @@ export class Store {
             }
             this.categories = data as ProductCategories;
         } catch (err) {
+            console.log('123error');
             alert(err);
         }
     }

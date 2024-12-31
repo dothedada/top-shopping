@@ -91,4 +91,4 @@ const useFetch = (url: ApiUrl): FetchReturn => {
     return { data, onError, loaded };
 };
 
-export { makeFetchUrl, useFetch };
+export { makeFetchUrl, useFetch, ProductData };

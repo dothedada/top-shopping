@@ -1,6 +1,7 @@
 import { describe, it, vi, expect, beforeEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import { makeFetchUrl, useFetch } from '../useFetch.tsx';
+import { useFetch } from '../useFetch.tsx';
+import { makeFetchUrl } from '../../fetcher.ts';
 
 const mockFetch = vi.fn();
 globalThis.fetch = mockFetch;

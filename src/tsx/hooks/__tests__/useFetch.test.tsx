@@ -3,6 +3,11 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { useFetch } from '../useFetch.tsx';
 import { makeFetchUrl } from '../../fetcher.ts';
 import { ProductData } from '../../types/global';
+import {
+    mockedItemsData,
+    mockedCategoriesData,
+    commonFetchErrors,
+} from '../../__tests__/mockData.ts';
 
 const mockFetch = vi.fn();
 globalThis.fetch = mockFetch;
@@ -32,51 +37,6 @@ describe('useFetch:', () => {
     beforeEach(() => {
         mockFetch.mockReset();
     });
-
-    const mockedItemsData = [
-        {
-            id: '1',
-            title: 'Sony WH-1000XM3 Bluetooth Wireless Over Ear Headphones with Mic (Silver)',
-            image: 'https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1692947383286-714WUJlhbLS._SL1500_.jpg',
-            price: 773,
-            description: 'Digital noise cancelling : Industry leading Active',
-            brand: 'Sony',
-            Color: 'silver',
-            Category: 'audio',
-            discount: 0,
-        },
-        {
-            id: '2',
-            title: 'Bose QuietComfort 35 II Wireless Bluetooth Headphones with Mic (Black)',
-            image: 'https://example.com/bose-quietcomfort.jpg',
-            price: 349,
-            description:
-                'Noise-cancelling Bluetooth headphones with up to 20 hours of battery life',
-            brand: 'Bose',
-            Color: 'black',
-            Category: 'audio',
-            discount: 10,
-        },
-        {
-            id: '3',
-            title: 'Sennheiser Momentum 3 Wireless Noise Cancelling Headphones (Silver)',
-            image: 'https://example.com/sennheiser-momentum.jpg',
-            price: 399,
-            description:
-                'Premium sound and noise-cancelling technology with 17-hour battery life',
-            brand: 'Sennheiser',
-            Color: 'silver',
-            Category: 'audio',
-            discount: 5,
-        },
-    ];
-
-    const mockedCategoriesData = [
-        'electronics',
-        'jewelery',
-        "men's clothing",
-        "women's clothing",
-    ];
 
     it('Takes a string and returns an object with onLoad, onError and data keys', async () => {
         mockFetch.mockResolvedValueOnce({
@@ -149,14 +109,6 @@ describe('useFetch:', () => {
     });
 
     it('returns onError = [true, "Error <code>: <message>"] if response not ok', async () => {
-        const commonFetchErrors = [
-            [400, 'Bad Request...'],
-            [401, 'Unauthorized...'],
-            [403, 'Forbidden...'],
-            [404, 'Not Found...'],
-            [500, 'Internal Server Error...'],
-        ];
-
         for (const [errorCode, errorMsg] of commonFetchErrors) {
             mockFetch.mockResolvedValueOnce({
                 ok: false,

@@ -52,7 +52,6 @@ const fetcher = async (
         }
 
         const dataFetched = await response.json();
-
         data = !dataFetched[0]?.id ? dataFetched : dataFetched.map(itemBuilder);
     } catch (err) {
         const { code = 'unknown', description = 'unknown' } = err as FetchError;

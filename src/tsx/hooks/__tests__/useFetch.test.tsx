@@ -2,6 +2,7 @@ import { describe, it, vi, expect, beforeEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import { useFetch } from '../useFetch.tsx';
 import { makeFetchUrl } from '../../fetcher.ts';
+import { ProductData } from '../../types/global';
 
 const mockFetch = vi.fn();
 globalThis.fetch = mockFetch;
@@ -221,8 +222,15 @@ describe('useFetch:', () => {
             expect(result.current.data).not.toBe(null);
         });
 
-        for (const key of cardKeys) {
-            expect(key in result.current.data[0]).toBe(true);
+        if (!result.current.data) {
+            expect(result.current.data).toBeDefined();
+            return;
+        }
+
+        for (const element of result.current.data) {
+            for (const key of cardKeys) {
+                expect(key in (element as ProductData)).toBe(true);
+            }
         }
     });
 });

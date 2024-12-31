@@ -24,6 +24,10 @@ export type FetchReturn = {
 
 export type DataFetched = ProductData[] | ProductCategories | null;
 
-export type CategoryPath = '/category' | `/category?type=${string}`;
+export type CategoryPath =
+    | '/category'
+    | `/category?type=${string}`
+    | `/category?type=${string}?limit=${number}`
+    | `?limit=${number}`;
 
 export type ApiUrl = `${typeof baseUrl}${CategoryPath}`;

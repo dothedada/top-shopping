@@ -237,10 +237,12 @@ export const mockedItemsData = [
 ];
 
 export const mockedCategoriesData = [
-    'electronics',
-    'jewelery',
-    "men's clothing",
-    "women's clothing",
+    'tv',
+    'audio',
+    'laptop',
+    'mobile',
+    'gaming',
+    'appliances',
 ];
 
 export const commonFetchErrors = [

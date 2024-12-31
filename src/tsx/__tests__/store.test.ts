@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Store } from '../store';
 import { mockedCategoriesData, mockedItemsData } from './mockData';
-import { fetcher, makeFetchUrl } from '../fetcher';
 
 const mockFetch = vi.fn();
 globalThis.fetch = mockFetch;
@@ -34,7 +33,6 @@ describe('Store as a singleton', () => {
     });
     it('populate the categories qhen created', async () => {
         const store = await Store.create();
-
         expect(store.allCategories).toEqual(mockedCategoriesData);
     });
 });

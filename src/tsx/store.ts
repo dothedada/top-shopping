@@ -46,9 +46,37 @@ export class Store {
         }
     }
 
+    async loadNewItems(category: string, amount: number) {
+        try {
+            const controller = new AbortController();
+            const { data, onError } = await fetcher(
+                makeFetchUrl(category, amount),
+                controller,
+            );
+            if (onError?.[0]) {
+                throw onError[1];
+            }
+            this.items = data as ProductData[];
+        } catch (err) {
+            alert(err);
+        }
+    }
+
+    async resetStore() {
+        this.items.length = 0;
+        this.categories.length = 0;
+        await this.updateCategories();
+        await this.populateStore();
+    }
+
+    itemsFrom(category: string): ProductData[] {
+        return this.items.filter((item) => item.category === category);
+    }
+
     get allCategories() {
         return this.categories;
     }
+
     get allItems() {
         return this.items;
     }

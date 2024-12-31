@@ -34,5 +34,6 @@ describe('Store as a singleton', () => {
     it('populate the categories qhen created', async () => {
         const store = await Store.create();
         expect(store.allCategories).toEqual(mockedCategoriesData);
+        expect(store.allItems.length).toStrictEqual(5);
     });
 });

@@ -10,9 +10,13 @@ import {
 
 const baseUrl = 'https://fakestoreapi.in/api/products' as const;
 
-const makeFetchUrl = (category: string = ''): ApiUrl => {
+const makeFetchUrl = (
+    category: string = '',
+    limit: number | undefined = undefined,
+): ApiUrl => {
     const categoryName = category ? `/category?type=${category}` : '/category';
-    return `${baseUrl}${categoryName as CategoryPath}`;
+    const amountLimit = limit ? `?limit=${limit}` : '';
+    return `${baseUrl}${limit && !category ? amountLimit : `${categoryName}${amountLimit}`}` as CategoryPath;
 };
 
 const fetcher = async (

@@ -8,12 +8,11 @@ Quick excercise for TOP
 elementos funcionales de programación
 (vitest)
 
-- ~~fetcher \_realizar testeo~~
-- inventario tienda
+- ~~fetcher ~~
+- ~~inventario tienda~~
     - ~~Caraga inicial de elementos y categorias ~~
-    - cargar los elementos
-    - filtrar los elementos
-    - ordenar los elementos
+    - ~~cargar los elementos~~
+    - ~~filtrar los elementos~~
 - inventario carrito
     - añadir elementos
     - editar cantidad de los elementos

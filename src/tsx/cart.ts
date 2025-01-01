@@ -18,6 +18,10 @@ export class Cart {
         this.quantities[id] = quantity;
     }
 
+    getAmount(id: string): number {
+        return this.quantities[id] ?? 0;
+    }
+
     subItem(id: string): void {
         if (!this.quantities[id]) {
             return;
@@ -42,7 +46,8 @@ export class Cart {
 
     itemTotalCost(id: string, inventory: ProductData[]): number {
         const itemPrice = inventory.find((item) => item.id === id)?.price ?? 0;
-        return this.quantities[id] * itemPrice;
+        const itemAmount = this.quantities[id] ?? 0;
+        return itemAmount * itemPrice;
     }
 
     totalCost(inventory: ProductData[]): number {

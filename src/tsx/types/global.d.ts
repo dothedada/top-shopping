@@ -3,8 +3,10 @@ export interface ProductData {
     title: string;
     price: number;
     description: string;
+    brand: string;
     image: string;
     category: string;
+    discount: number;
 }
 
 export type ProductCategories = string[];

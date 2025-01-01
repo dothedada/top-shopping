@@ -1,4 +1,6 @@
-export const mockedItemsData = [
+import { ProductData, ProductCategories } from '../types/global';
+
+export const mockedItemsData: ProductData[] = [
     {
         id: '1',
         title: 'Sony WH-1000XM3 Bluetooth Wireless Over Ear Headphones with Mic (Silver)',
@@ -6,8 +8,7 @@ export const mockedItemsData = [
         price: 773,
         description: 'Digital noise cancelling : Industry leading Active',
         brand: 'Sony',
-        Color: 'silver',
-        Category: 'audio',
+        category: 'audio',
         discount: 0,
     },
     {
@@ -18,8 +19,7 @@ export const mockedItemsData = [
         description:
             'Noise-cancelling Bluetooth headphones with up to 20 hours of battery life',
         brand: 'Bose',
-        Color: 'black',
-        Category: 'audio',
+        category: 'audio',
         discount: 10,
     },
     {
@@ -30,8 +30,7 @@ export const mockedItemsData = [
         description:
             'Premium sound and noise-cancelling technology with 17-hour battery life',
         brand: 'Sennheiser',
-        Color: 'silver',
-        Category: 'audio',
+        category: 'audio',
         discount: 5,
     },
     {
@@ -42,8 +41,7 @@ export const mockedItemsData = [
         description:
             'Industry-leading noise-cancelling earbuds with superior sound quality',
         brand: 'Sony',
-        Color: 'black',
-        Category: 'audio',
+        category: 'audio',
         discount: 15,
     },
     {
@@ -54,8 +52,7 @@ export const mockedItemsData = [
         description:
             'Active noise cancellation for immersive sound, transparency mode for hearing and connecting with the world around you',
         brand: 'Apple',
-        Color: 'white',
-        Category: 'audio',
+        category: 'audio',
         discount: 5,
     },
     {
@@ -66,8 +63,7 @@ export const mockedItemsData = [
         description:
             'JBL Signature Sound with active noise cancelling and up to 30 hours of battery life',
         brand: 'JBL',
-        Color: 'blue',
-        Category: 'audio',
+        category: 'audio',
         discount: 20,
     },
     {
@@ -78,8 +74,7 @@ export const mockedItemsData = [
         description:
             'Luxurious design and impeccable sound quality with adaptive ANC',
         brand: 'Bang & Olufsen',
-        Color: 'grey',
-        Category: 'audio',
+        category: 'audio',
         discount: 0,
     },
     {
@@ -90,8 +85,7 @@ export const mockedItemsData = [
         description:
             'Hybrid active noise cancelling headphones with 40-hour battery life',
         brand: 'Anker',
-        Color: 'black',
-        Category: 'audio',
+        category: 'audio',
         discount: 25,
     },
     {
@@ -102,8 +96,7 @@ export const mockedItemsData = [
         description:
             'Personal sound tuning with adjustable sensory bass and long battery life',
         brand: 'Skullcandy',
-        Color: 'red',
-        Category: 'audio',
+        category: 'audio',
         discount: 10,
     },
     {
@@ -114,8 +107,7 @@ export const mockedItemsData = [
         description:
             'Professional gaming headset with advanced noise-cancelling mic',
         brand: 'Logitech',
-        Color: 'black',
-        Category: 'gaming',
+        category: 'gaming',
         discount: 15,
     },
     {
@@ -126,8 +118,7 @@ export const mockedItemsData = [
         description:
             'Elegant gold-plated necklace with a minimalist pendant design',
         brand: 'JewelryHouse',
-        Color: 'gold',
-        Category: 'jewelery',
+        category: 'jewelery',
         discount: 20,
     },
     {
@@ -137,8 +128,7 @@ export const mockedItemsData = [
         price: 299,
         description: 'High-quality leather jacket with a timeless design',
         brand: 'FashionPro',
-        Color: 'black',
-        Category: "men's clothing",
+        category: "men's clothing",
         discount: 15,
     },
     {
@@ -149,8 +139,7 @@ export const mockedItemsData = [
         description:
             'Flowy maxi dress with vibrant floral prints, perfect for summer',
         brand: 'BloomWear',
-        Color: 'blue',
-        Category: "women's clothing",
+        category: "women's clothing",
         discount: 10,
     },
     {
@@ -161,8 +150,7 @@ export const mockedItemsData = [
         description:
             'Classic sterling silver hoop earrings, perfect for any occasion',
         brand: 'SilverCraft',
-        Color: 'silver',
-        Category: 'jewelery',
+        category: 'jewelery',
         discount: 5,
     },
     {
@@ -173,8 +161,7 @@ export const mockedItemsData = [
         description:
             'Comfortable and stylish slim fit chinos for everyday wear',
         brand: 'UrbanStyle',
-        Color: 'khaki',
-        Category: "men's clothing",
+        category: "men's clothing",
         discount: 10,
     },
     {
@@ -184,8 +171,7 @@ export const mockedItemsData = [
         price: 159,
         description: 'Luxurious and warm faux fur coat for winter fashion',
         brand: 'WinterElegance',
-        Color: 'white',
-        Category: "women's clothing",
+        category: "women's clothing",
         discount: 15,
     },
     {
@@ -195,8 +181,7 @@ export const mockedItemsData = [
         price: 19,
         description: 'Soft and breathable cotton T-shirt for everyday comfort',
         brand: 'ComfortWear',
-        Color: 'navy blue',
-        Category: "men's clothing",
+        category: "men's clothing",
         discount: 5,
     },
     {
@@ -207,8 +192,7 @@ export const mockedItemsData = [
         description:
             'Lightweight sneakers with a stylish design for casual wear',
         brand: 'StepUp',
-        Color: 'pink',
-        Category: "women's clothing",
+        category: "women's clothing",
         discount: 10,
     },
     {
@@ -219,8 +203,7 @@ export const mockedItemsData = [
         description:
             'Elegant gold-plated bracelet featuring customizable charms',
         brand: 'CharmWorks',
-        Color: 'gold',
-        Category: 'jewelery',
+        category: 'jewelery',
         discount: 15,
     },
     {
@@ -230,13 +213,12 @@ export const mockedItemsData = [
         price: 59,
         description: 'Warm and stylish wool scarf, perfect for winter',
         brand: 'WinterWear',
-        Color: 'gray',
-        Category: "men's clothing",
+        category: "men's clothing",
         discount: 10,
     },
 ];
 
-export const mockedCategoriesData = [
+export const mockedCategoriesData: ProductCategories = [
     'tv',
     'audio',
     'laptop',

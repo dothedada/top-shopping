@@ -13,11 +13,11 @@ elementos funcionales de programación
     - ~~Caraga inicial de elementos y categorias ~~
     - ~~cargar los elementos~~
     - ~~filtrar los elementos~~
-- inventario carrito
-    - añadir elementos
-    - editar cantidad de los elementos
-    - quitar los elementos
-    - resetear
+- ~~inventario carrito~~
+    - ~~añadir elementos~~
+    - ~~editar cantidad de los elementos~~
+    - ~~quitar los elementos~~
+    - ~~resetear~~
 
 items: [FakeStore API](https://fakestoreapi.com/)
 

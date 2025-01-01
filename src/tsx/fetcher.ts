@@ -20,7 +20,7 @@ const makeFetchUrl = (
 };
 
 const itemBuilder = (item: Record<string, string>): ProductData => ({
-    id: +item.id,
+    id: item.id,
     title: item.title,
     price: +item.price,
     description: item.description,

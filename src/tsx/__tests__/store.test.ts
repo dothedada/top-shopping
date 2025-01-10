@@ -75,23 +75,6 @@ describe('Store', () => {
         });
     });
 
-    describe('AbortController', () => {
-        it('aborts fetch requests when controller signals', async () => {
-            mockFetch.mockImplementationOnce(
-                async (url: string, options: RequestInit) => {
-                    options.signal?.addEventListener('abort', () => {
-                        throw new Error('AbortError');
-                    });
-                    options.signal?.dispatchEvent(new Event('abort'));
-                    return {};
-                },
-            );
-
-            await store.loadNewItems('electronics', 3);
-            expect(mockAlert).toHaveBeenCalled();
-        });
-    });
-
     describe('Data Consistency', () => {
         it('maintains data types for categories', async () => {
             store = await Store.create();

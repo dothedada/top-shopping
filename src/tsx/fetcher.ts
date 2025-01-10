@@ -6,6 +6,7 @@ import {
     ProductData,
     ApiUrl,
     CategoryPath,
+    ProductCategories,
 } from './types/global';
 
 const baseUrl = 'https://fakestoreapi.in/api/products' as const;
@@ -26,6 +27,8 @@ const itemBuilder = (item: Record<string, string>): ProductData => ({
     description: item.description,
     image: item.image,
     category: item.category,
+    brand: item.brand,
+    discount: +item.discount,
 });
 
 const fetcher = async (
@@ -52,7 +55,11 @@ const fetcher = async (
         }
 
         const dataFetched = await response.json();
-        data = !dataFetched[0]?.id ? dataFetched : dataFetched.map(itemBuilder);
+        if (!dataFetched[0]?.id) {
+            data = dataFetched.categories as ProductCategories;
+        } else {
+            data = dataFetched.map(itemBuilder) as ProductData[];
+        }
     } catch (err) {
         const { code = 'unknown', description = 'unknown' } = err as FetchError;
         const errPrompt = `Error ${code}: ${description}`;

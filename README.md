@@ -10,13 +10,13 @@ elementos funcionales de programación
 
 - ~~fetcher ~~
 - ~~inventario tienda~~
-    - ~~Caraga inicial de elementos y categorias ~~
-    - ~~cargar los elementos~~
-    - ~~filtrar los elementos~~
+  - ~~Caraga inicial de elementos y categorias ~~
+  - ~~cargar los elementos~~
+  - ~~filtrar los elementos~~
 - ~~inventario carrito~~
-    - ~~añadir elementos~~
-    - ~~editar cantidad de los elementos~~
-    - ~~quitar los elementos~~
+  - ~~añadir elementos~~
+  - ~~editar cantidad de los elementos~~
+  - ~~quitar los elementos~~
     - ~~resetear~~
 
 items: [FakeStore API](https://fakestoreapi.com/)
@@ -43,15 +43,15 @@ vitrina
 - árbol de categorías ?
 - ordenado de productos
 - tabla de tarjetas minificadas
-    - nombre
-    - agregar al carrito
-    - Abrir tarjeta expandida del producto
+  - nombre
+  - agregar al carrito
+  - Abrir tarjeta expandida del producto
 - tarjeta expandida de producto
-    - nombre
-    - descripción
-    - precio
-    - cantidad (input texto, botones + y -)
-    - agregar al carrito
+  - nombre
+  - descripción
+  - precio
+  - cantidad (input texto, botones + y -)
+  - agregar al carrito
 
 shopping
 

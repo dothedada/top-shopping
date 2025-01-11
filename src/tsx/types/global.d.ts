@@ -33,3 +33,8 @@ export type CategoryPath =
     | `?limit=${number}`;
 
 export type ApiUrl = `${typeof baseUrl}${CategoryPath}`;
+
+type ErrorReactRouter = {
+    statusText: string;
+    message: string;
+};

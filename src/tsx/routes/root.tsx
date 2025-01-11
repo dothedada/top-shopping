@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Store } from '../store';
+import { NavLink, Outlet } from 'react-router-dom';
 
 export default function Root() {
   const [store, setStore] = useState<Store | null>(null);
@@ -51,13 +52,15 @@ export default function Root() {
           <ul>
             {store?.allCategories.map((category, index) => (
               <li key={index}>
-                <a href={`${category}/`}>{category}</a>
+                <NavLink to={`/category/${category}`}>{category}</NavLink>
               </li>
             ))}
           </ul>
         </nav>
       </header>
-      <main id="content"></main>
+      <main id="content">
+        <Outlet />
+      </main>
     </>
   );
 }

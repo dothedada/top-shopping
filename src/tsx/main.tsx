@@ -5,15 +5,15 @@ import Root from './routes/root';
 import ErrorPage from './routes/errorPage';
 
 const route = createBrowserRouter([
-    {
-        path: '/',
-        element: <Root />,
-        errorElement: <ErrorPage />,
-    },
+  {
+    path: '/',
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <RouterProvider router={route} />
-    </StrictMode>,
+  <StrictMode>
+    <RouterProvider router={route} />
+  </StrictMode>,
 );

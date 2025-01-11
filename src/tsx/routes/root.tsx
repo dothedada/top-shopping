@@ -1,4 +1,13 @@
+import { useEffect, useState } from 'react';
+import { Store } from '../store';
+
 export default function Root() {
+    const [store, setStore] = useState<Store | null>(null);
+
+    useEffect(() => {
+        Store.create().then((store) => setStore(store));
+    }, []);
+
     return (
         <>
             <header>
@@ -42,12 +51,11 @@ export default function Root() {
 
                 <nav aria-label="Categorías de productos">
                     <ul>
-                        <li>
-                            <a href={'category1/'}>Categoría 1</a>
-                        </li>
-                        <li>
-                            <a href={'category2/'}>Categoría 2</a>
-                        </li>
+                        {store?.allCategories.map((category, index) => (
+                            <li key={index}>
+                                <a href={`${category}/`}>{category}</a>
+                            </li>
+                        ))}
                     </ul>
                 </nav>
             </header>

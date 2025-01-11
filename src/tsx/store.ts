@@ -1,4 +1,4 @@
-import { fetcher, makeFetchUrl } from './fetcher';
+import { fetcher, makeFetchUrl } from './dataFetcher';
 import { ProductData, ProductCategories } from './types/global';
 
 export class Store {

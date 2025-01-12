@@ -17,10 +17,14 @@ const route = createBrowserRouter([
     path: '/',
     element: <Root />,
     errorElement: <ErrorPage />,
+    loader: storeLoader,
+    hydrateFallbackElement: <h1>cargandooooo</h1>,
+
     children: [
       {
-        path: '/category/:categoryName',
+        path: '/:categoryName',
         element: <CategoryPage />,
+        loader: storeLoader,
       },
       { path: '/item/:id', element: <ProductDetail /> },
     ],

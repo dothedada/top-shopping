@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Store } from '../store';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLoaderData } from 'react-router-dom';
 
 export default function Root() {
-  const [store, setStore] = useState<Store | null>(null);
+  // const [store, setStore] = useState<Store | null>(null);
 
-  useEffect(() => {
-    Store.create().then((store) => setStore(store));
-  }, []);
+  const { store } = useLoaderData();
+  // useEffect(() => {
+  //   Store.create().then((store) => setStore(store));
+  // }, []);
 
   return (
     <>
@@ -52,7 +53,7 @@ export default function Root() {
           <ul>
             {store?.allCategories.map((category, index) => (
               <li key={index}>
-                <NavLink to={`/category/${category}`}>{category}</NavLink>
+                <NavLink to={`/${category}`}>{category}</NavLink>
               </li>
             ))}
           </ul>

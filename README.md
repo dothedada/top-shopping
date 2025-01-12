@@ -7,10 +7,12 @@ Quick excercise for TOP
 
 elementos funcionales de programación
 (vitest)
+(react testing library)
+(react router)
 
-- ~~fetcher ~~
+- ~~fetcher~~
 - ~~inventario tienda~~
-  - ~~Caraga inicial de elementos y categorias ~~
+  - ~~Caraga inicial de elementos y categorias~~
   - ~~cargar los elementos~~
   - ~~filtrar los elementos~~
 - ~~inventario carrito~~
@@ -21,14 +23,12 @@ elementos funcionales de programación
 
 items: [FakeStore API](https://fakestoreapi.com/)
 
-estructura navegación del carrito
-(react testing library)
-(react router)
+~~estructura navegación del carrito~~
 
 Barra de navegacion
 
-- enlace landing
-- enlace vitrina
+- ~~enlace landing~~
+- ~~enlace vitrina~~
 - enlace carrito (muestra el estado del carrito)
 
 landing

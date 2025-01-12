@@ -6,6 +6,11 @@ export class Store {
   private categories: ProductCategories = [];
   private static instance: Store | null = null;
 
+  constructor() {
+    this.items = [];
+    this.categories = [];
+  }
+
   static async create() {
     if (Store.instance) {
       return Store.instance;
@@ -14,6 +19,7 @@ export class Store {
     await store.updateCategories();
     await store.populateStore();
     Store.instance = store;
+    console.log(store.allItems);
     return store;
   }
 
@@ -73,6 +79,13 @@ export class Store {
 
   get allCategories() {
     return this.categories;
+  }
+
+  addCategories(categories: ProductCategories) {
+    this.categories.push(...categories);
+  }
+  addItems(categories: ProductData[]) {
+    this.items.push(...categories);
   }
 
   get allItems() {

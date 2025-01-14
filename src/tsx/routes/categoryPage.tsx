@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { ProductData } from '../types/global';
 import { Cart } from '../cart';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
+import { Link } from 'react-router-dom';
 
-export async function loader({ params }) {
+export async function loader({ params }: { params: Record<string, string> }) {
   try {
     const { categoryName } = params;
     const controller = new AbortController();
@@ -29,8 +30,11 @@ export default function CategoryPage() {
   const [items, setItems] = useState<ProductData[]>([]);
 
   useEffect(() => {
-    console.log(newItems);
-    setItems(() => store.allItems.filter((e) => e.category === categoryName));
+    setItems(() => {
+      store.addItems(newItems);
+      console.log(store.allItems.length);
+      return store.allItems.filter((e) => e.category === categoryName);
+    });
   }, [store, categoryName, newItems]);
 
   if (!categoryName || !store) {
@@ -42,7 +46,12 @@ export default function CategoryPage() {
   return (
     <>
       <h1>{categoryName}</h1>
-      {items && items.map((item, index) => <div key={index}>{item.title}</div>)}
+      {items &&
+        items.map((item, index) => (
+          <div key={index}>
+            <Link to={`/item/${item.id}`}>{item.title}</Link>
+          </div>
+        ))}
     </>
   );
 }

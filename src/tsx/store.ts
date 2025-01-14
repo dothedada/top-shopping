@@ -1,76 +1,24 @@
-import { fetcher, makeFetchUrl } from './dataFetcher';
 import { ProductData, ProductCategories } from './types/global';
 
 export class Store {
   private items: ProductData[] = [];
   private categories: ProductCategories = [];
+  private itemsIds: Set<number> = new Set();
   private static instance: Store | null = null;
 
   constructor() {
-    this.items = [];
-    this.categories = [];
-  }
-
-  static async create() {
     if (Store.instance) {
       return Store.instance;
     }
-    const store = new Store();
-    await store.updateCategories();
-    await store.populateStore();
-    Store.instance = store;
-    console.log(store.allItems);
-    return store;
-  }
-
-  private async populateStore() {
-    try {
-      const controller = new AbortController();
-      const { data, onError } = await fetcher(makeFetchUrl('', 5), controller);
-      if (onError?.[0]) {
-        throw onError[1];
-      }
-      this.items = data as ProductData[];
-    } catch (err) {
-      alert(err);
-    }
-  }
-
-  async updateCategories() {
-    try {
-      const controller = new AbortController();
-      const { data, onError } = await fetcher(makeFetchUrl(), controller);
-      if (onError?.[0] === true) {
-        throw onError[1];
-      }
-      this.categories = data as ProductCategories;
-    } catch (err) {
-      console.log('123error');
-      alert(err);
-    }
-  }
-
-  async loadNewItems(category: string) {
-    try {
-      const controller = new AbortController();
-      const { data, onError } = await fetcher(
-        makeFetchUrl(category, amount),
-        controller,
-      );
-      if (onError?.[0]) {
-        throw onError[1];
-      }
-      this.items = data as ProductData[];
-    } catch (err) {
-      alert(err);
-    }
+    Store.instance = this;
+    this.items = [];
+    this.categories = [];
   }
 
   async resetStore() {
     this.items.length = 0;
     this.categories.length = 0;
-    await this.updateCategories();
-    await this.populateStore();
+    this.itemsIds = new Set();
   }
 
   itemsFrom(category: string): ProductData[] {
@@ -84,11 +32,20 @@ export class Store {
   addCategories(categories: ProductCategories) {
     this.categories.push(...categories);
   }
-  addItems(categories: ProductData[]) {
-    this.items.push(...categories);
+  addItems(newItems: ProductData[]) {
+    newItems.forEach((item) => {
+      if (!this.itemsIds.has(item.id)) {
+        this.itemsIds.add(item.id);
+        this.items.push(item);
+      }
+    });
   }
 
   get allItems() {
     return this.items;
+  }
+
+  getItem(id: string): ProductData | undefined {
+    return this.items.find((item) => item.id === +id);
   }
 }

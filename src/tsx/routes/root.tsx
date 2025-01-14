@@ -1,6 +1,40 @@
-import { useEffect, useState } from 'react';
 import { Store } from '../store';
 import { NavLink, Outlet, useLoaderData } from 'react-router-dom';
+import { fetcher, makeFetchUrl } from '../dataFetcher';
+import { ProductCategories, ProductData } from '../types/global';
+
+export async function loader() {
+  try {
+    const store = new Store();
+    const controllerCategories = new AbortController();
+    const { data: dataCategories, onError: onErrorCategories } = await fetcher(
+      makeFetchUrl(),
+      controllerCategories,
+    );
+
+    if (onErrorCategories && onErrorCategories[0]) {
+      throw new Error(
+        `error while loading categories: ${onErrorCategories[1]}`,
+      );
+    }
+
+    const controllerItems = new AbortController();
+
+    const { data: items, onError: onErrorItems } = await fetcher(
+      makeFetchUrl('', 5),
+      controllerItems,
+    );
+
+    if (onErrorItems && onErrorItems[0]) {
+      throw new Error(`error while loading items: ${onErrorItems[1]}`);
+    }
+    store.addCategories(dataCategories as ProductCategories);
+    store.addItems(items as ProductData[]);
+    return { store };
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export default function Root() {
   // const [store, setStore] = useState<Store | null>(null);
@@ -51,7 +85,7 @@ export default function Root() {
 
         <nav aria-label="Categorías de productos">
           <ul>
-            {store?.allCategories.map((category, index) => (
+            {store?.allCategories.map((category: string, index: number) => (
               <li key={index}>
                 <NavLink to={`/${category}`}>{category}</NavLink>
               </li>

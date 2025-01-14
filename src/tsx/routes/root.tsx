@@ -2,6 +2,8 @@ import { Store } from '../store';
 import { NavLink, Outlet, useLoaderData } from 'react-router-dom';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
 import { ProductCategories, ProductData } from '../types/global';
+import { useState, useEffect } from 'react';
+import { Cart } from '../cart';
 
 export async function loader() {
   try {
@@ -37,12 +39,14 @@ export async function loader() {
 }
 
 export default function Root() {
-  // const [store, setStore] = useState<Store | null>(null);
-
+  const [cart, setCart] = useState<Cart | null>(null);
   const { store } = useLoaderData();
-  // useEffect(() => {
-  //   Store.create().then((store) => setStore(store));
-  // }, []);
+
+  useEffect(() => {
+    setCart(() => new Cart());
+  }, []);
+
+  const context = { store, cart };
 
   return (
     <>
@@ -76,6 +80,7 @@ export default function Root() {
               </li>
               <li>
                 <a href={'cart/'}>
+                  {cart && <div>{cart.totalItems}</div>}
                   <span className="sr-only">Ver el carrito de compras</span>
                 </a>
               </li>
@@ -94,7 +99,7 @@ export default function Root() {
         </nav>
       </header>
       <main id="content">
-        <Outlet />
+        <Outlet context={context} />
       </main>
     </>
   );

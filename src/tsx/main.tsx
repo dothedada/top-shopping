@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root, { loader as rootLoader } from './routes/root';
 import ErrorPage from './routes/errorPage';
-import CategoryPage from './routes/categoryPage';
+import CategoryPage, { loader as categoryLoader } from './routes/categoryPage';
 import ProductDetail from './routes/productDetail';
 
 const route = createBrowserRouter([
@@ -18,6 +18,7 @@ const route = createBrowserRouter([
       {
         path: '/:categoryName',
         element: <CategoryPage />,
+        loader: categoryLoader,
       },
       { path: '/item/:id', element: <ProductDetail /> },
     ],

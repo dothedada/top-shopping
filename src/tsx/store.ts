@@ -48,4 +48,8 @@ export class Store {
   getItem(id: string): ProductData | undefined {
     return this.items.find((item) => item.id === +id);
   }
+
+  hasItem(id: string): boolean {
+    return this.items.some((e) => e.id === id);
+  }
 }

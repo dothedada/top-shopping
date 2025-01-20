@@ -27,9 +27,9 @@ items: [FakeStore API](https://fakestoreapi.com/)
 
 ReactRouter:
 
-- caraga de categorias
-- carga de elementos iniciales
-- carga de elementos por categoria
+- ~~carga de categorias~~
+- ~~carga de elementos iniciales~~
+- ~~carga de elementos por categoria~~
 - administracion de carrito de compras
 
 Barra de navegacion
@@ -37,6 +37,13 @@ Barra de navegacion
 - ~~enlace landing~~
 - ~~enlace vitrina~~
 - enlace carrito (muestra el estado del carrito)
+
+Carrito de compras
+
+- editar productos y cantidades del carrito
+- listado de la compra
+- calculadora de precio
+- checkout
 
 landing
 
@@ -59,10 +66,3 @@ vitrina
   - precio
   - cantidad (input texto, botones + y -)
   - agregar al carrito
-
-shopping
-
-- editar productos y cantidades del carrito
-- listado de la compra
-- calculadora de precio
-- checkout

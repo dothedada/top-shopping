@@ -3,6 +3,7 @@ import Root, { loader as rootLoader } from './root';
 import CategoryPage, { loader as categoryLoader } from './categoryPage';
 import ErrorPage from './errorPage';
 import ProductDetail from './productDetail';
+import MyCart from './myCart';
 
 export const route = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ export const route = createBrowserRouter([
     ],
   },
   {
-    path: '/myCart',
+    path: '/cart',
+    element: <MyCart />,
   },
 ]);

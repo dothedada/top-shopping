@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ProductData } from '../types/global';
 import { Cart } from '../cart';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
-import { Link } from 'react-router-dom';
+import { ItemCard } from '../components/items';
 
 export async function loader({ params }: { params: Record<string, string> }) {
   try {
@@ -43,15 +43,18 @@ export default function CategoryPage() {
   if (!store.allCategories.includes(categoryName)) {
     return <h1>La categoría {categoryName} no existe en nuestro catálogo</h1>;
   }
+
+  const addBtn = (id: number): void => {
+    console.log(id);
+  };
   return (
     <>
       <h1>{categoryName}</h1>
-      {items &&
-        items.map((item, index) => (
-          <div key={index}>
-            <Link to={`/item/${item.id}`}>{item.title}</Link>
-          </div>
-        ))}
+      {items.map((item, index) => (
+        <div key={index}>
+          <ItemCard item={item} addBtn={addBtn} />
+        </div>
+      ))}
     </>
   );
 }

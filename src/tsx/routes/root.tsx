@@ -47,7 +47,7 @@ export default function Root() {
     setCart(() => new Cart(store));
   }, [store]);
 
-  const context = { store, cart };
+  const context = { store, cart, setItemsInCart };
 
   return (
     <>

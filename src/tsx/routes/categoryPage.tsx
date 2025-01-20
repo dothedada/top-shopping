@@ -25,7 +25,11 @@ export async function loader({ params }: { params: Record<string, string> }) {
 
 export default function CategoryPage() {
   const { categoryName } = useParams();
-  const { store } = useOutletContext<{ store: Store; cart: Cart }>();
+  const { store, cart, setItemsInCart } = useOutletContext<{
+    store: Store;
+    cart: Cart;
+    setItemsInCart: (amount: number) => void;
+  }>();
   const { data: newItems } = useLoaderData<{ data: ProductData[] }>();
   const [items, setItems] = useState<ProductData[]>([]);
 
@@ -45,16 +49,17 @@ export default function CategoryPage() {
   }
 
   const addBtn = (id: number): void => {
-    console.log(id);
+    cart.addItem(id);
+    setItemsInCart(cart.totalItems);
   };
   return (
     <>
       <h1>{categoryName}</h1>
-      {items.map((item, index) => (
-        <div key={index}>
-          <ItemCard item={item} addBtn={addBtn} />
-        </div>
-      ))}
+      <div className="deck">
+        {items.map((item) => (
+          <ItemCard item={item} addBtn={addBtn} key={item.id} />
+        ))}
+      </div>
     </>
   );
 }

@@ -2,9 +2,14 @@ import { useOutletContext, useParams } from 'react-router-dom';
 import { Store } from '../store';
 import { useEffect, useState } from 'react';
 import { ProductData } from '../types/global';
+import { Cart } from '../cart';
 
 export default function ProductDetail() {
-  const { store } = useOutletContext<{ store: Store }>();
+  const { store, cart, setItemsInCart } = useOutletContext<{
+    store: Store;
+    cart: Cart;
+    setItemsInCart: (amount: number) => void;
+  }>();
   const { id } = useParams();
   const [item, setItem] = useState<ProductData | undefined>(undefined);
 
@@ -13,11 +18,32 @@ export default function ProductDetail() {
       setItem(() => store.getItem(id));
     }
   }, [id, store]);
+
+  const addItem = () => {
+    if (!id) {
+      return;
+    }
+    cart.addItem(+id);
+    setItemsInCart(cart.totalItems);
+  };
+
+  const removeItem = () => {
+    if (!id) {
+      return;
+    }
+    cart.deleteItem(+id);
+    setItemsInCart(cart.totalItems);
+  };
   return (
     <>
-      <h2>{id}</h2>
       <h2>{item?.title}</h2>
       <p>{item?.description}</p>
+      <button type="button" onPointerDown={addItem}>
+        Añadir al carrito
+      </button>
+      <button type="button" onPointerDown={removeItem}>
+        quitar del carrito
+      </button>
     </>
   );
 }

@@ -5,8 +5,9 @@ import { ProductData } from '../types/global';
 import { Cart } from '../cart';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
 import { ItemCard } from '../components/items';
+import { LoaderFunctionArgs } from 'react-router-dom';
 
-export async function loader({ params }: { params: Record<string, string> }) {
+export async function loader({ params }: LoaderFunctionArgs) {
   try {
     const { categoryName } = params;
     const controller = new AbortController();

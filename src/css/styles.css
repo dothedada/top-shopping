@@ -1,0 +1,12 @@
+.deck {
+  display: flex;
+  flex-wrap: wrap;
+}
+.deck__card {
+  flex: 1 1 200px;
+
+  img {
+    width: 100%;
+    filter: grayscale(100%);
+  }
+}

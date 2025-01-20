@@ -12,7 +12,7 @@ export function ItemCard({
     return <div>No se pudo obtener la informacion</div>;
   }
   return (
-    <div>
+    <div className="deck__card">
       <img src={item.image} alt={item.title} />
       <h3>{item.title}</h3>
       <p>{item.description}</p>

@@ -1,36 +1,36 @@
-import { ProductData } from './types/global';
+import { Store } from './store';
 
 export class Cart {
   private quantities: Record<string, number> = {};
   private static instance: Cart | null = null;
-  private inventory: ProductData[] = [];
+  private currentInventory: Store = null!;
 
-  constructor(inventory: ProductData[] = []) {
+  constructor(inventory: Store) {
     if (Cart.instance) {
       return Cart.instance;
     }
-    this.inventory = inventory;
+    this.currentInventory = inventory;
   }
 
-  addItem(id: string): void {
-    if (!this.inventory.some((item) => item.id === id)) {
+  addItem(id: number): void {
+    if (!this.currentInventory.hasItem(id)) {
       throw new Error(`Item with id: ${id} does not exist in inventory`);
     }
     this.quantities[id] = (this.quantities[id] || 0) + 1;
   }
 
-  setAmount(id: string, quantity: number): void {
-    if (!this.inventory.some((item) => item.id === id)) {
+  setAmount(id: number, quantity: number): void {
+    if (!this.currentInventory.hasItem(id)) {
       throw new Error(`Item with id: ${id} does not exist in inventory`);
     }
     this.quantities[id] = quantity;
   }
 
-  getAmount(id: string): number | null {
+  getAmount(id: number): number | null {
     return this.quantities[id] ?? null;
   }
 
-  subItem(id: string): void {
+  subItem(id: number): void {
     if (!this.quantities[id]) {
       return;
     }
@@ -42,7 +42,7 @@ export class Cart {
     }
   }
 
-  deleteItem(id: string): void {
+  deleteItem(id: number): void {
     if (this.quantities[id] === undefined) {
       return;
     }
@@ -55,7 +55,7 @@ export class Cart {
 
   get totalItems() {
     return Object.keys(this.quantities).reduce(
-      (sum, curr) => sum + this.quantities[curr],
+      (sum: number, curr: string) => sum + this.quantities[+curr],
       0,
     );
   }
@@ -64,17 +64,16 @@ export class Cart {
     this.quantities = {};
   }
 
-  itemTotalCost(id: string): number {
-    const itemPrice = this.inventory.find((item) => item.id === id)?.price ?? 0;
+  itemSubTotal(id: number): number {
+    const itemPrice = this.currentInventory.getItem(id)?.price ?? 0;
     const itemAmount = this.quantities[id] ?? 0;
     return itemAmount * itemPrice;
   }
 
   totalCost(): number {
-    let cost = 0;
-    for (const itemId of Object.keys(this.quantities)) {
-      cost += this.itemTotalCost(itemId);
-    }
-    return cost;
+    return Object.keys(this.quantities).reduce((sum: number, curr: string) => {
+      const itemSubTotal = this.itemSubTotal(+curr);
+      return sum + itemSubTotal;
+    }, 0);
   }
 }

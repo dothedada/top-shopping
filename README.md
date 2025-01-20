@@ -25,6 +25,13 @@ items: [FakeStore API](https://fakestoreapi.com/)
 
 ~~estructura navegación del carrito~~
 
+ReactRouter:
+
+- caraga de categorias
+- carga de elementos iniciales
+- carga de elementos por categoria
+- administracion de carrito de compras
+
 Barra de navegacion
 
 - ~~enlace landing~~

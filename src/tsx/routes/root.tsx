@@ -40,11 +40,12 @@ export async function loader() {
 
 export default function Root() {
   const [cart, setCart] = useState<Cart | null>(null);
+  const [itemsInCart, setItemsInCart] = useState(0);
   const { store } = useLoaderData();
 
   useEffect(() => {
-    setCart(() => new Cart());
-  }, []);
+    setCart(() => new Cart(store));
+  }, [store]);
 
   const context = { store, cart };
 
@@ -80,8 +81,7 @@ export default function Root() {
               </li>
               <li>
                 <a href={'cart/'}>
-                  {cart && <div>{cart.totalItems}</div>}
-                  <span className="sr-only">Ver el carrito de compras</span>
+                  <CartBtn itemsInCart={itemsInCart} />
                 </a>
               </li>
             </ul>
@@ -104,3 +104,13 @@ export default function Root() {
     </>
   );
 }
+
+const CartBtn = ({ itemsInCart }: { itemsInCart: number }) => {
+  return (
+    <div>
+      <span>icon</span>
+      <span>{itemsInCart > 0 && itemsInCart}</span>
+      <span>Ir al carrito de compras</span>
+    </div>
+  );
+};

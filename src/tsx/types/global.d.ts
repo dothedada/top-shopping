@@ -24,13 +24,18 @@ export type FetchReturn = {
   onError: ErrorState;
 };
 
-export type DataFetched = ProductData[] | ProductCategories | null;
+export type DataFetched =
+  | ProductData
+  | ProductData[]
+  | ProductCategories
+  | null;
 
 export type CategoryPath =
   | '/category'
   | `/category?type=${string}`
   | `/category?type=${string}?limit=${number}`
-  | `?limit=${number}`;
+  | `?limit=${number}`
+  | `/products/${number}`;
 
 export type ApiUrl = `${typeof baseUrl}${CategoryPath}`;
 

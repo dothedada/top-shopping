@@ -20,8 +20,10 @@ const makeFetchUrl = (
   return `${baseUrl}${limit && !category ? amountLimit : `${categoryName}${amountLimit}`}` as CategoryPath;
 };
 
+const makeFetchItemUrl = (id: number): ApiUrl => `${baseUrl}/${id}`;
+
 const itemBuilder = (item: Record<string, string>): ProductData => ({
-  id: item.id,
+  id: +item.id,
   title: item.title,
   price: +item.price,
   description: item.description,
@@ -55,9 +57,15 @@ const fetcher = async (
     }
 
     const dataFetched = await response.json();
-    data = dataFetched.categories
-      ? (dataFetched.categories as ProductCategories)
-      : (dataFetched.products.map(itemBuilder) as ProductData[]);
+    if (dataFetched.categories) {
+      data = dataFetched.categories as ProductCategories;
+    } else if (dataFetched.products) {
+      data = dataFetched.products.map(itemBuilder) as ProductData[];
+    } else if (dataFetched.product) {
+      data = dataFetched.product as ProductData;
+    } else {
+      throw new Error('Invalid dataFetched structure');
+    }
   } catch (err) {
     const { code = 'unknown', description = 'unknown' } = err as FetchError;
     const errPrompt = `Error ${code}: ${description}`;
@@ -69,4 +77,4 @@ const fetcher = async (
   return { loaded, onError, data };
 };
 
-export { fetcher, makeFetchUrl };
+export { fetcher, makeFetchUrl, makeFetchItemUrl };

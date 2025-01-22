@@ -1,4 +1,5 @@
 import { Store } from './store';
+import { ProductData } from './types/global';
 
 export class Cart {
   private quantities: Record<string, number> = {};
@@ -37,7 +38,6 @@ export class Cart {
     this.quantities[id] -= 1;
 
     if (this.quantities[id] === 0) {
-      console.log(this.quantities[id]);
       this.deleteItem(id);
     }
   }
@@ -47,10 +47,6 @@ export class Cart {
       return;
     }
     delete this.quantities[id];
-  }
-
-  itemsInCart() {
-    return Object.keys(this.quantities);
   }
 
   get totalItems() {
@@ -70,10 +66,21 @@ export class Cart {
     return itemAmount * itemPrice;
   }
 
-  totalCost(): number {
+  get totalCost(): number {
     return Object.keys(this.quantities).reduce((sum: number, curr: string) => {
       const itemSubTotal = this.itemSubTotal(+curr);
       return sum + itemSubTotal;
     }, 0);
+  }
+
+  get getItemsInCart(): ProductData[] | [] {
+    const items = Object.keys(this.quantities)
+      .map((id) => this.currentInventory.getItem(+id))
+      .filter((e) => e);
+    return items as ProductData[];
+  }
+
+  get hasItems(): boolean {
+    return Object.keys(this.quantities).length > 0;
   }
 }

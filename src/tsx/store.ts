@@ -45,11 +45,11 @@ export class Store {
     return this.items;
   }
 
-  getItem(id: string): ProductData | undefined {
+  getItem(id: number): ProductData | undefined {
     return this.items.find((item) => item.id === +id);
   }
 
-  hasItem(id: string): boolean {
+  hasItem(id: number): boolean {
     return this.items.some((e) => e.id === id);
   }
 }

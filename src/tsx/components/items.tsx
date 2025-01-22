@@ -23,3 +23,14 @@ export function ItemCard({
     </div>
   );
 }
+
+export const ItemList = ({ item }: { item: ProductData }) => {
+  return (
+    <>
+      <div>{item.brand}</div>
+      <div>{item.price}</div>
+      <div>{item.discount}</div>
+      <div>{item.category}</div>
+    </>
+  );
+};

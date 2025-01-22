@@ -23,10 +23,10 @@ export const route = createBrowserRouter([
         path: '/item/:id',
         element: <ProductDetail />,
       },
+      {
+        path: '/cart',
+        element: <MyCart />,
+      },
     ],
-  },
-  {
-    path: '/cart',
-    element: <MyCart />,
   },
 ]);

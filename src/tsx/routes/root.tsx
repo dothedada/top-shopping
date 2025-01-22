@@ -1,5 +1,5 @@
 import { Store } from '../store';
-import { NavLink, Outlet, useLoaderData } from 'react-router-dom';
+import { NavLink, Outlet, useLoaderData, Link } from 'react-router-dom';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
 import { ProductCategories, ProductData } from '../types/global';
 import { useState, useEffect } from 'react';
@@ -77,12 +77,12 @@ export default function Root() {
           <nav className="main-nav" aria-label="Navegación principal">
             <ul>
               <li>
-                <a href={'about/'}>Sobre nosotros</a>
+                <a href={'/about/'}>Sobre nosotros</a>
               </li>
               <li>
-                <a href={'cart/'}>
+                <Link to={'/cart/'}>
                   <CartBtn itemsInCart={itemsInCart} />
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

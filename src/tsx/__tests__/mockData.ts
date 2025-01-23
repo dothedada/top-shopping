@@ -2,7 +2,7 @@ import { ProductData, FetchCategories } from '../types/global';
 
 export const mockedItemsData: ProductData[] = [
   {
-    id: '1',
+    id: 1,
     title:
       'Sony WH-1000XM3 Bluetooth Wireless Over Ear Headphones with Mic (Silver)',
     image:
@@ -14,7 +14,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 0,
   },
   {
-    id: '2',
+    id: 2,
     title:
       'Bose QuietComfort 35 II Wireless Bluetooth Headphones with Mic (Black)',
     image: 'https://example.com/bose-quietcomfort.jpg',
@@ -26,7 +26,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 10,
   },
   {
-    id: '3',
+    id: 3,
     title:
       'Sennheiser Momentum 3 Wireless Noise Cancelling Headphones (Silver)',
     image: 'https://example.com/sennheiser-momentum.jpg',
@@ -38,7 +38,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 5,
   },
   {
-    id: '4',
+    id: 4,
     title: 'Sony WF-1000XM4 Wireless Noise Cancelling Earbuds (Black)',
     image: 'https://example.com/sony-earbuds.jpg',
     price: 279,
@@ -49,7 +49,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 15,
   },
   {
-    id: '5',
+    id: 5,
     title: 'Apple AirPods Pro (White)',
     image: 'https://example.com/apple-airpods-pro.jpg',
     price: 249,
@@ -60,7 +60,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 5,
   },
   {
-    id: '6',
+    id: 6,
     title:
       'JBL Live 650BTNC Over Ear Noise Cancelling Bluetooth Headphones (Blue)',
     image: 'https://example.com/jbl-live650.jpg',
@@ -72,7 +72,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 20,
   },
   {
-    id: '7',
+    id: 7,
     title: 'Bang & Olufsen Beoplay H95 Premium Wireless Headphones (Grey)',
     image: 'https://example.com/beoplay-h95.jpg',
     price: 899,
@@ -83,7 +83,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 0,
   },
   {
-    id: '8',
+    id: 8,
     title:
       'Anker Soundcore Life Q30 Hybrid Active Noise Cancelling Headphones (Black)',
     image: 'https://example.com/soundcore-q30.jpg',
@@ -95,7 +95,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 25,
   },
   {
-    id: '9',
+    id: 9,
     title: 'Skullcandy Crusher Evo Wireless Over Ear Headphones (Red)',
     image: 'https://example.com/skullcandy-crusher.jpg',
     price: 199,
@@ -106,7 +106,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 10,
   },
   {
-    id: '10',
+    id: 10,
     title: 'Logitech G Pro X Gaming Headset with Blue Voice Technology (Black)',
     image: 'https://example.com/logitech-gpro.jpg',
     price: 129,
@@ -117,7 +117,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 15,
   },
   {
-    id: '11',
+    id: 11,
     title: '18K Gold Plated Pendant Necklace for Women',
     image: 'https://example.com/gold-necklace.jpg',
     price: 149,
@@ -128,7 +128,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 20,
   },
   {
-    id: '12',
+    id: 12,
     title: 'Men’s Classic Leather Jacket (Black)',
     image: 'https://example.com/leather-jacket.jpg',
     price: 299,
@@ -138,7 +138,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 15,
   },
   {
-    id: '13',
+    id: 13,
     title: 'Women’s Floral Print Maxi Dress',
     image: 'https://example.com/maxi-dress.jpg',
     price: 79,
@@ -149,7 +149,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 10,
   },
   {
-    id: '14',
+    id: 14,
     title: 'Sterling Silver Hoop Earrings',
     image: 'https://example.com/silver-earrings.jpg',
     price: 79,
@@ -160,7 +160,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 5,
   },
   {
-    id: '15',
+    id: 15,
     title: 'Men’s Slim Fit Chinos (Khaki)',
     image: 'https://example.com/slim-fit-chinos.jpg',
     price: 49,
@@ -170,7 +170,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 10,
   },
   {
-    id: '16',
+    id: 16,
     title: 'Women’s Faux Fur Winter Coat (White)',
     image: 'https://example.com/faux-fur-coat.jpg',
     price: 159,
@@ -180,7 +180,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 15,
   },
   {
-    id: '17',
+    id: 17,
     title: 'Men’s Cotton Crew Neck T-Shirt (Navy Blue)',
     image: 'https://example.com/cotton-tshirt.jpg',
     price: 19,
@@ -190,7 +190,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 5,
   },
   {
-    id: '18',
+    id: 18,
     title: 'Women’s Casual Sneakers (Pink)',
     image: 'https://example.com/casual-sneakers.jpg',
     price: 49,
@@ -200,7 +200,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 10,
   },
   {
-    id: '19',
+    id: 19,
     title: 'Gold-Plated Bracelet with Charms',
     image: 'https://example.com/gold-bracelet.jpg',
     price: 199,
@@ -210,7 +210,7 @@ export const mockedItemsData: ProductData[] = [
     discount: 15,
   },
   {
-    id: '20',
+    id: 20,
     title: 'Men’s Wool Scarf (Gray)',
     image: 'https://example.com/wool-scarf.jpg',
     price: 59,

@@ -10,13 +10,15 @@ export class Cart {
     if (Cart.instance) {
       return Cart.instance;
     }
+    Cart.instance = this;
     this.currentInventory = inventory;
   }
 
   addItem(id: number): void {
-    if (!this.currentInventory.hasItem(id)) {
+    if (!this.currentInventory?.hasItem(id)) {
       throw new Error(`Item with id: ${id} does not exist in inventory`);
     }
+    console.log('idididid', id);
     this.quantities[id] = (this.quantities[id] || 0) + 1;
   }
 

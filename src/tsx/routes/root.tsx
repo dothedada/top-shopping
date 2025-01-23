@@ -49,8 +49,6 @@ export default function Root() {
 
   const context = { store, cart, setItemsInCart };
 
-  console.log(store.allCategories);
-
   return (
     <>
       <header>
@@ -95,7 +93,7 @@ export default function Root() {
             {store.allCategories.map((category: string) => (
               <li key={category}>
                 <NavLink
-                  to={`/category/${category}`}
+                  to={`/${category}`}
                   className={({ isActive }) => (isActive ? 'active' : '')}
                 >
                   {category}

@@ -15,7 +15,7 @@ export const route = createBrowserRouter([
 
     children: [
       {
-        path: '/category/:categoryName',
+        path: '/:categoryName',
         element: <CategoryPage />,
         loader: categoryLoader,
       },

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ProductData } from '../types/global';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function ItemCard({
   addBtn,
@@ -42,9 +42,16 @@ export const ItemList = ({
 }) => {
   const amountRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (amountRef.current) {
+      amountRef.current.value = amount.toString();
+    }
+  }, [amount]);
+
   return (
     <>
       <div>{item.brand}</div>
+      <div>{amount}</div>
       <div>{item.price}</div>
       <div>{item.discount}</div>
       <div>{item.category}</div>
@@ -53,7 +60,6 @@ export const ItemList = ({
         type="number"
         onBlur={() => changeAmount(item.id, +(amountRef.current?.value ?? 0))}
         ref={amountRef}
-        defaultValue={amount}
       />
       <button onPointerDown={() => substractOne(item.id)}>-</button>
       <button onPointerDown={() => removeItem(item.id)}>

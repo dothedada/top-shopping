@@ -1,7 +1,7 @@
 import { Store } from '../store';
 import { NavLink, Outlet, useLoaderData, Link } from 'react-router-dom';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
-import { ProductCategories, ProductData } from '../types/global';
+import { FetchCategories, ProductData } from '../types/global';
 import { useState, useEffect } from 'react';
 import { Cart } from '../cart';
 
@@ -30,7 +30,7 @@ export async function loader() {
     if (onErrorItems && onErrorItems[0]) {
       throw new Error(`error while loading items: ${onErrorItems[1]}`);
     }
-    store.addCategories(dataCategories as ProductCategories);
+    store.addCategories(dataCategories as FetchCategories);
     store.addItems(items as ProductData[]);
     return { store };
   } catch (err) {
@@ -41,13 +41,15 @@ export async function loader() {
 export default function Root() {
   const [cart, setCart] = useState<Cart | null>(null);
   const [itemsInCart, setItemsInCart] = useState(0);
-  const { store } = useLoaderData();
+  const { store } = useLoaderData<{ store: Store }>();
 
   useEffect(() => {
     setCart(() => new Cart(store));
   }, [store]);
 
   const context = { store, cart, setItemsInCart };
+
+  console.log(store.allCategories);
 
   return (
     <>
@@ -90,9 +92,14 @@ export default function Root() {
 
         <nav aria-label="Categorías de productos">
           <ul>
-            {store?.allCategories.map((category: string, index: number) => (
-              <li key={index}>
-                <NavLink to={`/${category}`}>{category}</NavLink>
+            {store.allCategories.map((category: string) => (
+              <li key={category}>
+                <NavLink
+                  to={`/category/${category}`}
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                >
+                  {category}
+                </NavLink>
               </li>
             ))}
           </ul>

@@ -27,15 +27,18 @@ export function ItemCard({
 
 export const ItemList = ({
   item,
+  amount,
   addOne,
+  changeAmount,
   substractOne,
-  remove,
+  removeItem,
 }: {
   item: ProductData;
+  amount: number;
   addOne: (id: number) => void;
-  // changeQuantity: (id: number, amount: number) => void;
+  changeAmount: (id: number, amount: number) => void;
   substractOne: (id: number) => void;
-  remove: (id: number) => void;
+  removeItem: (id: number) => void;
 }) => {
   const amountRef = useRef<HTMLInputElement>(null);
 
@@ -45,10 +48,17 @@ export const ItemList = ({
       <div>{item.price}</div>
       <div>{item.discount}</div>
       <div>{item.category}</div>
-      <button onPointerDown={addOne(item.id)}>Añadir</button>
-      <input type="number" ref={amountRef} defaultValue={0} />
-      <button onPointerDown={() => substractOne(item.id)}>quitar uno</button>
-      <button onPointerDown={() => remove(item.id)}>quitar</button>
+      <button onPointerDown={() => addOne(item.id)}>+</button>
+      <input
+        type="number"
+        onBlur={() => changeAmount(item.id, +(amountRef.current?.value ?? 0))}
+        ref={amountRef}
+        defaultValue={amount}
+      />
+      <button onPointerDown={() => substractOne(item.id)}>-</button>
+      <button onPointerDown={() => removeItem(item.id)}>
+        Quitar del carrito
+      </button>
     </>
   );
 };

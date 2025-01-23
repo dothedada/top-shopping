@@ -8,9 +8,24 @@ export default function MyCart() {
     setItemsInCart: (amount: number) => void;
   }>();
 
-  const addOne = (id: number) => () => {
+  const addOne = (id: number) => {
     cart.addItem(id);
-    setItemsInCart(cart.getAmount(id) || 0);
+    setItemsInCart(cart.totalItems);
+  };
+
+  const changeAmount = (id: number, amount: number) => {
+    cart.setAmount(id, amount);
+    setItemsInCart(cart.totalItems);
+  };
+
+  const substractOne = (id: number) => {
+    cart.subItem(id);
+    setItemsInCart(cart.totalItems);
+  };
+
+  const removeItem = (id: number) => {
+    cart.deleteItem(id);
+    setItemsInCart(cart.totalItems);
   };
 
   return (
@@ -20,9 +35,11 @@ export default function MyCart() {
             <ItemList
               key={item.id}
               item={item}
+              amount={cart.getAmount(item.id) || 0}
               addOne={addOne}
-              substractOne={cart.subItem}
-              remove={cart.deleteItem}
+              changeAmount={changeAmount}
+              substractOne={substractOne}
+              removeItem={removeItem}
             />
           ))
         : 'No hay cosas en el carrito'}

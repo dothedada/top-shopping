@@ -16,8 +16,8 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (id !== undefined && store !== undefined) {
-      if (store.hasItem(id)) {
-        setItem(() => store.getItem(id));
+      if (store.hasItem(+id)) {
+        setItem(() => store.getItem(+id));
       } else {
         const controller = new AbortController();
         fetcher(makeFetchItemUrl(+id), controller).then((fetchObject) => {

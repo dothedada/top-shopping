@@ -37,7 +37,6 @@ export default function CategoryPage() {
   useEffect(() => {
     setItems(() => {
       store.addItems(newItems);
-      console.log(store.allItems.length);
       return store.allItems.filter((e) => e.category === categoryName);
     });
   }, [store, categoryName, newItems]);

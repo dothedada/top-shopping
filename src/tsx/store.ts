@@ -1,8 +1,8 @@
-import { ProductData, ProductCategories } from './types/global';
+import { ProductData, FetchCategories, Categories } from './types/global';
 
 export class Store {
   private items: ProductData[] = [];
-  private categories: ProductCategories = [];
+  private categories!: Categories;
   private itemsIds: Set<number> = new Set();
   private static instance: Store | null = null;
 
@@ -12,12 +12,12 @@ export class Store {
     }
     Store.instance = this;
     this.items = [];
-    this.categories = [];
+    this.categories = new Set();
   }
 
   async resetStore() {
     this.items.length = 0;
-    this.categories.length = 0;
+    this.categories = new Set();
     this.itemsIds = new Set();
   }
 
@@ -26,12 +26,15 @@ export class Store {
   }
 
   get allCategories() {
-    return this.categories;
+    return [...this.categories];
   }
 
-  addCategories(categories: ProductCategories) {
-    this.categories.push(...categories);
+  addCategories(categories: FetchCategories) {
+    for (const category of categories) {
+      this.categories.add(category);
+    }
   }
+
   addItems(newItems: ProductData[]) {
     newItems.forEach((item) => {
       if (!this.itemsIds.has(item.id)) {

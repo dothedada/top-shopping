@@ -9,7 +9,9 @@ export interface ProductData {
   discount: number;
 }
 
-export type ProductCategories = string[];
+export type FetchCategories = string[];
+
+export type Categories = Set<string>;
 
 export type ErrorState = [true, string] | null;
 
@@ -24,11 +26,7 @@ export type FetchReturn = {
   onError: ErrorState;
 };
 
-export type DataFetched =
-  | ProductData
-  | ProductData[]
-  | ProductCategories
-  | null;
+export type DataFetched = ProductData | ProductData[] | FetchCategories | null;
 
 export type CategoryPath =
   | '/category'

@@ -6,7 +6,7 @@ import {
   ProductData,
   ApiUrl,
   CategoryPath,
-  ProductCategories,
+  FetchCategories,
 } from './types/global';
 
 const baseUrl = 'https://fakestoreapi.in/api/products' as const;
@@ -58,7 +58,7 @@ const fetcher = async (
 
     const dataFetched = await response.json();
     if (dataFetched.categories) {
-      data = dataFetched.categories as ProductCategories;
+      data = dataFetched.categories as FetchCategories;
     } else if (dataFetched.products) {
       data = dataFetched.products.map(itemBuilder) as ProductData[];
     } else if (dataFetched.product) {

@@ -44,6 +44,25 @@ export class Store {
     });
   }
 
+  similarItemsIds(categories: string[], amount: number): number[] {
+    const itemsAvailable = this.items.reduce<number[]>((items, current) => {
+      for (const category of categories) {
+        if (current.category !== category) {
+          continue;
+        }
+        items.push(current.id);
+      }
+      return items;
+    }, []);
+
+    while (itemsAvailable.length > amount) {
+      const remove = Math.floor(Math.random() * itemsAvailable.length);
+      itemsAvailable.splice(remove, 1);
+    }
+
+    return itemsAvailable;
+  }
+
   get allItems() {
     return this.items;
   }

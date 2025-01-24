@@ -3,7 +3,7 @@
 Quick excercise for TOP
 (React + TypeScript + Vite // Vitest, React Testing Library, React Router)
 
-## Basick app sketch
+## Basic app sketch
 
 elementos funcionales de programación
 (vitest)
@@ -25,14 +25,14 @@ items: [FakeStore API](https://fakestoreapi.com/)
 
 ~~estructura navegación del carrito~~
 
-ReactRouter:
+~~ReactRouter:~~
 
 - ~~carga de categorias~~
 - ~~carga de elementos iniciales~~
 - ~~carga de elementos por categoria~~
 - ~~administracion de carrito de compras~~
 
-Barra de navegacion
+~~Barra de navegacion~~
 
 - ~~enlace landing~~
 - ~~enlace vitrina~~
@@ -41,8 +41,8 @@ Barra de navegacion
 Carrito de compras
 
 - ~~editar productos y cantidades del carrito~~
-- listado de la compra
-- calculadora de precio
+- ~~listado de la compra~~
+- ~~calculadora de precio~~
 - checkout
 
 landing

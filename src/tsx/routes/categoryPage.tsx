@@ -2,7 +2,6 @@ import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
 import { Store } from '../store';
 import { useEffect, useState } from 'react';
 import { ProductData } from '../types/global';
-import { Cart } from '../cart';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
 import { ItemCard } from '../components/itemsInDisplay';
 import { LoaderFunctionArgs } from 'react-router-dom';
@@ -26,11 +25,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function CategoryPage() {
   const { categoryName } = useParams();
-  const { store, cart, setItemsInCart } = useOutletContext<{
-    store: Store;
-    cart: Cart;
-    setItemsInCart: (amount: number) => void;
-  }>();
+  const { store } = useOutletContext<{ store: Store }>();
   const { data: newItems } = useLoaderData<{ data: ProductData[] }>();
   const [items, setItems] = useState<ProductData[]>([]);
 
@@ -48,17 +43,12 @@ export default function CategoryPage() {
     return <h1>La categoría {categoryName} no existe en nuestro catálogo</h1>;
   }
 
-  const addBtn = (id: number): void => {
-    cart.addItem(id);
-    setItemsInCart(cart.totalItems);
-  };
-
   return (
     <>
       <h1>{categoryName}</h1>
       <div className="deck">
         {items.map((item) => (
-          <ItemCard item={item} addBtn={addBtn} key={item.id} />
+          <ItemCard item={item} key={item.id} />
         ))}
       </div>
     </>

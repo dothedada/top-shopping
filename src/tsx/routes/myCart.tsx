@@ -1,16 +1,10 @@
 import { useOutletContext } from 'react-router-dom';
 import { Cart } from '../cart';
 import { ItemList, EmptyCart } from '../components/itemsInCart';
-import { Store } from '../store';
-import { ItemCard } from '../components/itemsInDisplay';
-import { ProductData } from '../types/global';
+import { RelatedItems } from '../components/itemsInDisplay';
 
 export default function MyCart() {
-  const { store, cart, setItemsInCart } = useOutletContext<{
-    store: Store;
-    cart: Cart;
-    setItemsInCart: (amount: number) => void;
-  }>();
+  const { cart } = useOutletContext<{ cart: Cart }>();
 
   if (cart === null) {
     return (
@@ -25,11 +19,6 @@ export default function MyCart() {
     },
     new Set(),
   );
-
-  const addBtn = (id: number): void => {
-    cart.addItem(id);
-    setItemsInCart(cart.totalItems);
-  };
 
   return (
     <>
@@ -52,11 +41,7 @@ export default function MyCart() {
           <button type="button">Pagar</button>
         </>
       )}
-      <h3>Tal vez te pueda interezar... </h3>
-      {store.similarItemsIds([...presentCategories], 5).map((itemId) => {
-        const item = store.getItem(itemId) as ProductData;
-        return <ItemCard key={itemId} addBtn={addBtn} item={item} />;
-      })}
+      <RelatedItems presentCategories={[...presentCategories]} />
     </>
   );
 }

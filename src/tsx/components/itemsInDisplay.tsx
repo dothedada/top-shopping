@@ -1,13 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { ProductData } from '../types/global';
+import { Store } from '../store';
+import { ItemInCartOperations } from './buttons';
 
-export function ItemCard({
-  addBtn,
-  item,
-}: {
-  addBtn: (id: number) => void;
-  item: ProductData;
-}) {
+export function ItemCard({ item }: { item: ProductData }) {
   if (!item) {
     return <div>No se pudo obtener la informacion</div>;
   }
@@ -17,9 +13,24 @@ export function ItemCard({
       <h3>{item.title}</h3>
       <p>{item.description}</p>
       <Link to={`/item/${item.id}`}>Ver más</Link>
-      <button type="button" onClick={() => addBtn(item.id)}>
-        Añadir al carrito
-      </button>
+      <ItemInCartOperations item={item} amount={0} />
     </div>
   );
 }
+
+export const RelatedItems = ({
+  presentCategories,
+}: {
+  presentCategories: string[];
+}) => {
+  const { store } = useOutletContext<{ store: Store }>();
+  return (
+    <>
+      <h3>Tal vez te pueda interezar... </h3>
+      {store.similarItemsIds([...presentCategories], 5).map((itemId) => {
+        const item = store.getItem(itemId) as ProductData;
+        return <ItemCard key={itemId} item={item} />;
+      })}
+    </>
+  );
+};

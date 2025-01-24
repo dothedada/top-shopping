@@ -1,6 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
 import { ProductData } from '../types/global';
-import { useEffect, useRef } from 'react';
 import { Cart } from '../cart';
 import { ItemInCartOperations } from './buttons';
 

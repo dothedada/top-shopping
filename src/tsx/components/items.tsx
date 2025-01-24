@@ -48,12 +48,17 @@ export const ItemList = ({
     }
   }, [amount]);
 
+  const discountPrice = Math.floor(item.price * (100 - item.discount) * 0.01);
+  const subTotal = amount * discountPrice;
+
   return (
     <>
       <div>{item.brand}</div>
       <div>{amount}</div>
-      <div>{item.price}</div>
-      <div>{item.discount}</div>
+      <div>
+        Antes: <strike>{item.price}</strike> Ahora: {discountPrice}
+      </div>
+      <div>{item.discount}%</div>
       <div>{item.category}</div>
       <button onPointerDown={() => addOne(item.id)}>+</button>
       <input
@@ -65,6 +70,10 @@ export const ItemList = ({
       <button onPointerDown={() => removeItem(item.id)}>
         Quitar del carrito
       </button>
+
+      <p>
+        <strong>Subtotal: {subTotal}</strong>
+      </p>
     </>
   );
 };

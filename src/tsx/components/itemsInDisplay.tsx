@@ -17,7 +17,7 @@ export function ItemCard({
       <h3>{item.title}</h3>
       <p>{item.description}</p>
       <Link to={`/item/${item.id}`}>Ver más</Link>
-      <button type="button" onPointerDown={() => addBtn(item.id)}>
+      <button type="button" onClick={() => addBtn(item.id)}>
         Añadir al carrito
       </button>
     </div>

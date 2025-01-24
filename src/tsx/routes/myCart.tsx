@@ -42,12 +42,15 @@ export default function MyCart() {
         <EmptyCart message="Está vacío" />
       )}
       {cart.hasItems && (
-        <p>
-          <strong>Total:</strong>
-          {cart.totalCost.pay}
-          <strong>Ahorraste:</strong>
-          {cart.totalCost.savings}
-        </p>
+        <>
+          <p>
+            <strong>Total:</strong>
+            {cart.totalCost.pay}
+            <strong>Ahorraste:</strong>
+            {cart.totalCost.savings}
+          </p>
+          <button type="button">Pagar</button>
+        </>
       )}
       <h3>Tal vez te pueda interezar... </h3>
       {store.similarItemsIds([...presentCategories], 5).map((itemId) => {

@@ -38,7 +38,7 @@ items: [FakeStore API](https://fakestoreapi.com/)
 - ~~enlace vitrina~~
 - ~~enlace carrito (muestra el estado del carrito)~~
 
-Carrito de compras
+~~Carrito de compras~~
 
 - ~~editar productos y cantidades del carrito~~
 - ~~listado de la compra~~

@@ -51,6 +51,7 @@ export const ItemInCartOperations = ({
     cart.deleteItem(item.id);
     setItemsInCart(cart.totalItems);
   };
+
   return (
     <>
       {amount > 0 ? (

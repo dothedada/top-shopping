@@ -54,12 +54,12 @@ export default function Root() {
     <>
       <header>
         <div className="header-top">
-          <a href="/">
+          <Link to="/">
             <h1>
               <span className="sr-only">Shoping</span>
               <span aria-hidden="true">Sh[oooo]ping!</span>
             </h1>
-          </a>
+          </Link>
           <form
             id="search-bar"
             role="search"

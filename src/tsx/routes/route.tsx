@@ -2,8 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import Root, { loader as rootLoader } from './root';
 import CategoryPage, { loader as categoryLoader } from './categoryPage';
 import ErrorPage from './errorPage';
-import ProductDetail from './productDetail';
+import ProductDetail from './productPage';
 import MyCart from './myCart';
+import Home from './homePage';
 
 export const route = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ export const route = createBrowserRouter([
     hydrateFallbackElement: <h1>cargandooooo</h1>,
 
     children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
       {
         path: '/:categoryName',
         element: <CategoryPage />,

@@ -52,6 +52,7 @@ export default function CategoryPage() {
     cart.addItem(id);
     setItemsInCart(cart.totalItems);
   };
+
   return (
     <>
       <h1>{categoryName}</h1>

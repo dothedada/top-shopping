@@ -55,12 +55,17 @@ export class Store {
       return items;
     }, []);
 
-    while (itemsAvailable.length > amount) {
-      const remove = Math.floor(Math.random() * itemsAvailable.length);
-      itemsAvailable.splice(remove, 1);
+    const itemsList =
+      itemsAvailable.length > amount
+        ? itemsAvailable
+        : this.allItems.map((item) => item.id);
+
+    while (itemsList.length > amount) {
+      const remove = Math.floor(Math.random() * itemsList.length);
+      itemsList.splice(remove, 1);
     }
 
-    return itemsAvailable;
+    return itemsList;
   }
 
   get allItems() {

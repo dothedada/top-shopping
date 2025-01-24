@@ -4,6 +4,7 @@ import { fetcher, makeFetchUrl } from '../dataFetcher';
 import { FetchCategories, ProductData } from '../types/global';
 import { useState, useEffect } from 'react';
 import { Cart } from '../cart';
+import { CartBtn } from '../components/buttons';
 
 export async function loader() {
   try {
@@ -55,7 +56,7 @@ export default function Root() {
         <div className="header-top">
           <a href="/">
             <h1>
-              <span className="sr-hidden">Shooooping</span>
+              <span className="sr-only">Shoping</span>
               <span aria-hidden="true">Sh[oooo]ping!</span>
             </h1>
           </a>
@@ -109,13 +110,3 @@ export default function Root() {
     </>
   );
 }
-
-const CartBtn = ({ itemsInCart }: { itemsInCart: number }) => {
-  return (
-    <div>
-      <span>icon</span>
-      <span>{itemsInCart > 0 && itemsInCart}</span>
-      <span>Ir al carrito de compras</span>
-    </div>
-  );
-};

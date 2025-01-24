@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ProductData } from '../types/global';
 import { Cart } from '../cart';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
-import { ItemCard } from '../components/items';
+import { ItemCard } from '../components/itemsInDisplay';
 import { LoaderFunctionArgs } from 'react-router-dom';
 
 export async function loader({ params }: LoaderFunctionArgs) {

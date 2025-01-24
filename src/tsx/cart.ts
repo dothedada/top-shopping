@@ -61,17 +61,29 @@ export class Cart {
     this.quantities = {};
   }
 
-  itemSubTotal(id: number): number {
-    const itemPrice = this.currentInventory.getItem(id)?.price ?? 0;
+  itemSubTotal(id: number): { fullPrice: number; discount: number } {
+    const item = this.currentInventory.getItem(id);
+
+    if (!item) {
+      throw new Error(`This item is not in the inventory ${id}`);
+    }
+    const discountPrice = Math.floor(item.price * (100 - item.discount) * 0.01);
     const itemAmount = this.quantities[id] ?? 0;
-    return itemAmount * itemPrice;
+    const fullPrice = itemAmount * item.price;
+    const discount = itemAmount * discountPrice;
+    return { fullPrice, discount };
   }
 
-  get totalCost(): number {
-    return Object.keys(this.quantities).reduce((sum: number, curr: string) => {
-      const itemSubTotal = this.itemSubTotal(+curr);
-      return sum + itemSubTotal;
-    }, 0);
+  get totalCost(): { pay: number; savings: number } {
+    return Object.keys(this.quantities).reduce(
+      (sum: { pay: number; savings: number }, curr: string) => {
+        const { fullPrice, discount } = this.itemSubTotal(+curr);
+        sum.pay = (sum.pay || 0) + discount;
+        sum.savings = (sum.savings || 0) + fullPrice - discount;
+        return sum;
+      },
+      { pay: 0, savings: 0 },
+    );
   }
 
   get getItemsInCart(): ProductData[] | [] {

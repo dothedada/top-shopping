@@ -3,7 +3,7 @@ import { Cart } from '../cart';
 import { ProductData } from '../types/global';
 import { useEffect, useRef } from 'react';
 
-export const CartBtn = ({ itemsInCart }: { itemsInCart: number }) => {
+export function CartBtn({ itemsInCart }: { itemsInCart: number }) {
   return (
     <div>
       <span className="sr-only">icon</span>
@@ -11,15 +11,15 @@ export const CartBtn = ({ itemsInCart }: { itemsInCart: number }) => {
       <span>Ir al carrito de compras</span>
     </div>
   );
-};
+}
 
-export const ItemInCartOperations = ({
+export function ItemInCartOperations({
   item,
   amount,
 }: {
   item: ProductData;
   amount: number;
-}) => {
+}) {
   const amountRef = useRef<HTMLInputElement>(null);
   const { cart, setItemsInCart } = useOutletContext<{
     cart: Cart;
@@ -38,12 +38,12 @@ export const ItemInCartOperations = ({
   };
 
   const changeAmount = () => {
-    cart.setAmount(item.id, +(amountRef.current?.value ?? 0));
+    cart.setItemAmount(item.id, +(amountRef.current?.value ?? 0));
     setItemsInCart(cart.totalItems);
   };
 
   const substractOne = () => {
-    cart.subItem(item.id);
+    cart.substractItem(item.id);
     setItemsInCart(cart.totalItems);
   };
 
@@ -68,4 +68,4 @@ export const ItemInCartOperations = ({
       )}
     </>
   );
-};
+}

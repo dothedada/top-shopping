@@ -15,24 +15,14 @@ export class Store {
     this.categories = new Set();
   }
 
-  async resetStore() {
-    this.items.length = 0;
-    this.categories = new Set();
-    this.itemsIds = new Set();
-  }
-
-  itemsFrom(category: string): ProductData[] {
-    return this.items.filter((item) => item.category === category);
-  }
-
-  get allCategories() {
-    return [...this.categories];
-  }
-
   addCategories(categories: FetchCategories) {
     for (const category of categories) {
       this.categories.add(category);
     }
+  }
+
+  get allCategories() {
+    return [...this.categories];
   }
 
   addItems(newItems: ProductData[]) {
@@ -42,6 +32,10 @@ export class Store {
         this.items.push(item);
       }
     });
+  }
+
+  itemsFrom(category: string): ProductData[] {
+    return this.items.filter((item) => item.category === category);
   }
 
   similarItemsIds(categories: string[], amount: number): number[] {
@@ -68,15 +62,21 @@ export class Store {
     return itemsList;
   }
 
-  get allItems() {
-    return this.items;
-  }
-
   getItem(id: number): ProductData | undefined {
     return this.items.find((item) => item.id === +id);
   }
 
   hasItem(id: number): boolean {
     return this.items.some((e) => e.id === id);
+  }
+
+  get allItems() {
+    return this.items;
+  }
+
+  reset() {
+    this.items.length = 0;
+    this.categories = new Set();
+    this.itemsIds = new Set();
   }
 }

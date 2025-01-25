@@ -10,7 +10,7 @@ export function ItemCard({ item }: { item: ProductData }) {
     return <div>No se pudo obtener la informacion</div>;
   }
 
-  const amount = cart.getAmount(item.id) || 0;
+  const amount = cart.getItemAmount(item.id) || 0;
   return (
     <div className="deck__card">
       <img src={item.image} alt={item.title} />
@@ -22,11 +22,11 @@ export function ItemCard({ item }: { item: ProductData }) {
   );
 }
 
-export const RelatedItems = ({
+export function RelatedItems({
   presentCategories,
 }: {
   presentCategories: string[];
-}) => {
+}) {
   const { store } = useOutletContext<{ store: Store }>();
   return (
     <>
@@ -37,4 +37,4 @@ export const RelatedItems = ({
       })}
     </>
   );
-};
+}

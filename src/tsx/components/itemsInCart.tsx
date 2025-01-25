@@ -3,12 +3,12 @@ import { ProductData } from '../types/global';
 import { Cart } from '../cart';
 import { ItemInCartOperations } from './buttons';
 
-export const ItemList = ({ item }: { item: ProductData }) => {
+export function ItemList({ item }: { item: ProductData }) {
   const { cart } = useOutletContext<{ cart: Cart }>();
-  const amount = cart.getAmount(item.id) || 0;
+  const amount = cart.getItemAmount(item.id) || 0;
 
   const discountPrice = Math.floor(item.price * (100 - item.discount) * 0.01);
-  const itemSubtotal = cart.itemSubTotal(item.id).discount;
+  const itemSubtotal = cart.itemTotalCost(item.id).discount;
 
   return (
     <>
@@ -25,7 +25,7 @@ export const ItemList = ({ item }: { item: ProductData }) => {
       </p>
     </>
   );
-};
+}
 
 export const EmptyCart = ({ message }: { message: string }) => {
   return <div>{message}</div>;

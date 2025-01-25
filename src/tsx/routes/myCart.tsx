@@ -12,7 +12,7 @@ export default function MyCart() {
     );
   }
 
-  const presentCategories = cart.getItemsInCart.reduce<Set<string>>(
+  const presentCategories = cart.getItems.reduce<Set<string>>(
     (present, current) => {
       present.add(current.category);
       return present;
@@ -23,14 +23,12 @@ export default function MyCart() {
   return (
     <>
       <h2>Tu carrito</h2>
-      {cart.hasItems ? (
-        cart.getItemsInCart.map((item) => (
-          <ItemList key={item.id} item={item} />
-        ))
+      {cart.isNotEmpty ? (
+        cart.getItems.map((item) => <ItemList key={item.id} item={item} />)
       ) : (
         <EmptyCart message="Está vacío" />
       )}
-      {cart.hasItems && (
+      {cart.isNotEmpty && (
         <>
           <p>
             <strong>Total:</strong>

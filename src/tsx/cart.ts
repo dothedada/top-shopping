@@ -21,18 +21,7 @@ export class Cart {
     this.quantities[id] = (this.quantities[id] || 0) + 1;
   }
 
-  setAmount(id: number, quantity: number): void {
-    if (!this.currentInventory.hasItem(id)) {
-      throw new Error(`Item with id: ${id} does not exist in inventory`);
-    }
-    this.quantities[id] = quantity;
-  }
-
-  getAmount(id: number): number | null {
-    return this.quantities[id] ?? null;
-  }
-
-  subItem(id: number): void {
+  substractItem(id: number): void {
     if (!this.quantities[id]) {
       return;
     }
@@ -50,18 +39,18 @@ export class Cart {
     delete this.quantities[id];
   }
 
-  get totalItems() {
-    return Object.keys(this.quantities).reduce(
-      (sum: number, curr: string) => sum + this.quantities[+curr],
-      0,
-    );
+  setItemAmount(id: number, quantity: number): void {
+    if (!this.currentInventory.hasItem(id)) {
+      throw new Error(`Item with id: ${id} does not exist in inventory`);
+    }
+    this.quantities[id] = quantity;
   }
 
-  resetCart() {
-    this.quantities = {};
+  getItemAmount(id: number): number | null {
+    return this.quantities[id] ?? null;
   }
 
-  itemSubTotal(id: number): { fullPrice: number; discount: number } {
+  itemTotalCost(id: number): { fullPrice: number; discount: number } {
     const item = this.currentInventory.getItem(id);
 
     if (!item) {
@@ -74,26 +63,37 @@ export class Cart {
     return { fullPrice, discount };
   }
 
-  get totalCost(): { pay: number; savings: number } {
-    return Object.keys(this.quantities).reduce(
-      (sum: { pay: number; savings: number }, curr: string) => {
-        const { fullPrice, discount } = this.itemSubTotal(+curr);
-        sum.pay = (sum.pay || 0) + discount;
-        sum.savings = (sum.savings || 0) + fullPrice - discount;
-        return sum;
-      },
-      { pay: 0, savings: 0 },
-    );
+  reset() {
+    this.quantities = {};
   }
 
-  get getItemsInCart(): ProductData[] | [] {
+  get isNotEmpty(): boolean {
+    return Object.keys(this.quantities).length > 0;
+  }
+
+  get getItems(): ProductData[] | [] {
     const items = Object.keys(this.quantities)
       .map((id) => this.currentInventory.getItem(+id))
       .filter((e) => e);
     return items as ProductData[];
   }
 
-  get hasItems(): boolean {
-    return Object.keys(this.quantities).length > 0;
+  get totalItems() {
+    return Object.keys(this.quantities).reduce(
+      (sum: number, curr: string) => sum + this.quantities[+curr],
+      0,
+    );
+  }
+
+  get totalCost(): { pay: number; savings: number } {
+    return Object.keys(this.quantities).reduce(
+      (sum: { pay: number; savings: number }, curr: string) => {
+        const { fullPrice, discount } = this.itemTotalCost(+curr);
+        sum.pay = (sum.pay || 0) + discount;
+        sum.savings = (sum.savings || 0) + fullPrice - discount;
+        return sum;
+      },
+      { pay: 0, savings: 0 },
+    );
   }
 }

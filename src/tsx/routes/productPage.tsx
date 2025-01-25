@@ -40,7 +40,10 @@ export default function ProductDetail() {
         <>
           <h2>{item?.title}</h2>
           <p>{item?.description}</p>
-          <ItemInCartOperations item={item} amount={cart.getAmount(+id) || 0} />
+          <ItemInCartOperations
+            item={item}
+            amount={cart.getItemAmount(+id) || 0}
+          />
         </>
       )}
       <RelatedItems presentCategories={item ? [item.category] : ['nop']} />

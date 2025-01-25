@@ -30,10 +30,13 @@ export default function CategoryPage() {
   const [items, setItems] = useState<ProductData[]>([]);
 
   useEffect(() => {
-    setItems(() => {
-      store.addItems(newItems);
-      return store.allItems.filter((e) => e.category === categoryName);
-    });
+    if (categoryName) {
+      setItems(() => {
+        store.addItems(newItems);
+        return store.itemsFrom(categoryName);
+        // return store.allItems.filter((e) => e.category === categoryName);
+      });
+    }
   }, [store, categoryName, newItems]);
 
   if (!categoryName || !store) {

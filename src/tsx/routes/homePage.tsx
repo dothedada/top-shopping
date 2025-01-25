@@ -5,7 +5,6 @@ import { ItemCard } from '../components/itemsInDisplay';
 export default function Home() {
   const { store } = useOutletContext<{ store: Store }>();
 
-  console.log(store.allItems);
   return (
     <>
       <h1>carajo</h1>

@@ -2,9 +2,10 @@ import { Store } from '../store';
 import { NavLink, Outlet, useLoaderData, Link } from 'react-router-dom';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
 import { FetchCategories, ProductData } from '../types/global';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { Cart } from '../cart';
 import { CartBtn } from '../components/buttons';
+import { ItemInSearch } from '../components/itemsInDisplay';
 
 export async function loader() {
   try {
@@ -44,12 +45,18 @@ export default function Root() {
   const [cart, setCart] = useState<Cart | null>(null);
   const [itemsInCart, setItemsInCart] = useState(0);
   const { store } = useLoaderData<{ store: Store }>();
+  const [searchItems, setSearchItems] = useState<ProductData[]>([]);
 
   useEffect(() => {
     setCart(() => new Cart(store));
   }, [store]);
 
   const context = { store, cart, setItemsInCart };
+
+  const searchEvent = (value: ChangeEvent<HTMLInputElement>) => {
+    const foundItems = store.lookFor(value.target.value, 10);
+    setSearchItems(value.target.value === '' ? [] : foundItems);
+  };
 
   return (
     <>
@@ -72,6 +79,7 @@ export default function Root() {
               aria-label="Buscar productos"
               placeholder="Buscar"
               name="q"
+              onChange={searchEvent}
             />
             <div id="search-spinner" aria-hidden="true"></div>
             <div className="sr-only" aria-live="polite"></div>
@@ -105,6 +113,8 @@ export default function Root() {
           </ul>
         </nav>
       </header>
+      {searchItems &&
+        searchItems.map((item) => <ItemInSearch key={item.id} item={item} />)}
       <main id="content">
         <Outlet context={context} />
       </main>

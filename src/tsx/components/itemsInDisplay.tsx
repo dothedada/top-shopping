@@ -30,6 +30,15 @@ export function ItemInHome({ item }: { item: ProductData }) {
   );
 }
 
+export function ItemInSearch({ item }: { item: ProductData }) {
+  return (
+    <div>
+      <h3>{item.title}</h3>
+      <p>{item.id}</p>
+    </div>
+  );
+}
+
 export function RelatedItems({
   presentCategories,
   id = undefined,

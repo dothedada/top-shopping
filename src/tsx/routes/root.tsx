@@ -6,6 +6,7 @@ import { useState, useEffect, ChangeEvent, useRef } from 'react';
 import { Cart } from '../cart';
 import { CartBtn } from '../components/buttons';
 import { ItemInSearch } from '../components/itemsInDisplay';
+import { debounce } from '../utils';
 
 export async function loader() {
   try {
@@ -54,10 +55,13 @@ export default function Root() {
 
   const context = { store, cart, setItemsInCart };
 
-  const searchEvent = (value: ChangeEvent<HTMLInputElement>) => {
-    const foundItems = store.lookFor(value.target.value, 10);
-    setSearchItems(value.target.value === '' ? [] : foundItems);
-  };
+  const debounceSearch = debounce<ChangeEvent<HTMLInputElement>>(() => {
+    if (!searchField.current) {
+      return;
+    }
+    const foundItems = store.lookFor(searchField.current.value, 10);
+    setSearchItems(searchField.current.value === '' ? [] : foundItems);
+  }, 500);
 
   const cleanSearch = () => {
     if (!searchField.current) {
@@ -88,7 +92,7 @@ export default function Root() {
               aria-label="Buscar productos"
               placeholder="Buscar"
               name="q"
-              onChange={searchEvent}
+              onChange={debounceSearch}
               ref={searchField}
             />
             <div id="search-spinner" aria-hidden="true"></div>

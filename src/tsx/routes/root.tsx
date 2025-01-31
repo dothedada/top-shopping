@@ -11,7 +11,7 @@ export async function loader() {
     const store = new Store();
     const controllerCategories = new AbortController();
     const { data: dataCategories, onError: onErrorCategories } = await fetcher(
-      makeFetchUrl(),
+      makeFetchUrl(true),
       controllerCategories,
     );
 
@@ -24,7 +24,7 @@ export async function loader() {
     const controllerItems = new AbortController();
 
     const { data: items, onError: onErrorItems } = await fetcher(
-      makeFetchUrl('', 5),
+      makeFetchUrl(),
       controllerItems,
     );
 

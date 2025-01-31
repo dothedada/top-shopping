@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Root, { loader as rootLoader } from './root';
-import CategoryPage, { loader as categoryLoader } from './categoryPage';
+import CategoryPage from './categoryPage';
 import ErrorPage from './errorPage';
 import ProductDetail from './productPage';
 import MyCart from './myCart';
@@ -22,7 +22,6 @@ export const route = createBrowserRouter([
       {
         path: '/:categoryName',
         element: <CategoryPage />,
-        loader: categoryLoader,
       },
       {
         path: '/item/:id',

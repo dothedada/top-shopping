@@ -2,7 +2,7 @@ import { Store } from '../store';
 import { NavLink, Outlet, useLoaderData, Link } from 'react-router-dom';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
 import { FetchCategories, ProductData } from '../types/global';
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, useRef } from 'react';
 import { Cart } from '../cart';
 import { CartBtn } from '../components/buttons';
 import { ItemInSearch } from '../components/itemsInDisplay';
@@ -46,6 +46,7 @@ export default function Root() {
   const [itemsInCart, setItemsInCart] = useState(0);
   const { store } = useLoaderData<{ store: Store }>();
   const [searchItems, setSearchItems] = useState<ProductData[]>([]);
+  const searchField = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setCart(() => new Cart(store));
@@ -56,6 +57,14 @@ export default function Root() {
   const searchEvent = (value: ChangeEvent<HTMLInputElement>) => {
     const foundItems = store.lookFor(value.target.value, 10);
     setSearchItems(value.target.value === '' ? [] : foundItems);
+  };
+
+  const cleanSearch = () => {
+    if (!searchField.current) {
+      return;
+    }
+    searchField.current.value = '';
+    setSearchItems([]);
   };
 
   return (
@@ -80,6 +89,7 @@ export default function Root() {
               placeholder="Buscar"
               name="q"
               onChange={searchEvent}
+              ref={searchField}
             />
             <div id="search-spinner" aria-hidden="true"></div>
             <div className="sr-only" aria-live="polite"></div>
@@ -113,8 +123,13 @@ export default function Root() {
           </ul>
         </nav>
       </header>
-      {searchItems &&
-        searchItems.map((item) => <ItemInSearch key={item.id} item={item} />)}
+      {searchItems && (
+        <div onClick={cleanSearch}>
+          {searchItems.map((item) => (
+            <ItemInSearch key={item.id} item={item} />
+          ))}
+        </div>
+      )}
       <main id="content">
         <Outlet context={context} />
       </main>

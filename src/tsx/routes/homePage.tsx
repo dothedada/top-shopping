@@ -9,9 +9,10 @@ export default function Home() {
     <>
       <h1>carajo</h1>
       <p>123</p>
-      {store.allItems.map((item) => (
-        <ItemInHome key={item.id} item={item} />
-      ))}
+      {store.getRandomItemsIds(3).map((id) => {
+        const item = store.getItem(id)!;
+        return <ItemInHome key={id} item={item} />;
+      })}
     </>
   );
 }

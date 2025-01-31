@@ -46,7 +46,10 @@ export default function ProductDetail() {
           />
         </>
       )}
-      <RelatedItems presentCategories={item ? [item.category] : ['nop']} />
+      <RelatedItems
+        presentCategories={item ? [item.category] : []}
+        id={item?.id}
+      />
     </>
   );
 }

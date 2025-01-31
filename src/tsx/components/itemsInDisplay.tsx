@@ -32,17 +32,21 @@ export function ItemInHome({ item }: { item: ProductData }) {
 
 export function RelatedItems({
   presentCategories,
+  id = undefined,
 }: {
   presentCategories: string[];
+  id: number | undefined;
 }) {
   const { store } = useOutletContext<{ store: Store }>();
   return (
     <>
       <h3>Tal vez te pueda interezar... </h3>
-      {store.similarItemsIds([...presentCategories], 5).map((itemId) => {
-        const item = store.getItem(itemId) as ProductData;
-        return <ItemCard key={itemId} item={item} />;
-      })}
+      {store
+        .getRandomItemsIds(5, [...presentCategories], id ?? -1)
+        .map((itemId) => {
+          const item = store.getItem(itemId) as ProductData;
+          return <ItemCard key={itemId} item={item} />;
+        })}
     </>
   );
 }

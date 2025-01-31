@@ -91,6 +91,13 @@ export class Store {
     return this.items;
   }
 
+  lookFor(input: string, coincidences: number = 5): ProductData[] {
+    const regex = new RegExp(input, 'gi');
+    return this.items
+      .filter((item) => regex.test(item.title))
+      .slice(0, coincidences);
+  }
+
   reset() {
     this.items.length = 0;
     this.categories = new Set();

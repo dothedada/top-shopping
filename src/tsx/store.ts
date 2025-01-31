@@ -38,28 +38,45 @@ export class Store {
     return this.items.filter((item) => item.category === category);
   }
 
-  similarItemsIds(categories: string[], amount: number): number[] {
-    const itemsAvailable = this.items.reduce<number[]>((items, current) => {
-      for (const category of categories) {
-        if (current.category !== category) {
-          continue;
+  getRandomItemsIds(
+    amount: number,
+    categories: string[] = [],
+    exclude: number = -1,
+  ): number[] {
+    let itemsPool: number[];
+    const randomItems = new Set<number>();
+
+    if (categories.length) {
+      itemsPool = this.items.reduce<number[]>((items, current) => {
+        for (const category of categories) {
+          if (current.category !== category) {
+            continue;
+          }
+          items.push(current.id);
         }
-        items.push(current.id);
-      }
-      return items;
-    }, []);
-
-    const itemsList =
-      itemsAvailable.length > amount
-        ? itemsAvailable
-        : this.allItems.map((item) => item.id);
-
-    while (itemsList.length > amount) {
-      const remove = Math.floor(Math.random() * itemsList.length);
-      itemsList.splice(remove, 1);
+        return items;
+      }, []);
+    } else {
+      itemsPool = this.items.map((item) => item.id);
     }
 
-    return itemsList;
+    while (amount > randomItems.size) {
+      const randomIndex = Math.floor(Math.random() * itemsPool.length);
+      if (randomIndex === exclude) {
+        continue;
+      }
+      randomItems.add(itemsPool[randomIndex]);
+    }
+
+    if (!randomItems.size) {
+      throw new Error('No items available');
+    }
+
+    if (randomItems.size < amount) {
+      console.error('Not enough items to fulfill the requirement');
+    }
+
+    return [...randomItems];
   }
 
   getItem(id: number): ProductData | undefined {

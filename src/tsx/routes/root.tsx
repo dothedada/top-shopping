@@ -33,6 +33,7 @@ export async function loader() {
     }
     store.addCategories(dataCategories as FetchCategories);
     store.addItems(items as ProductData[]);
+
     return { store };
   } catch (err) {
     console.log(err);

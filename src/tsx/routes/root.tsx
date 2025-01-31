@@ -2,11 +2,10 @@ import { Store } from '../store';
 import { NavLink, Outlet, useLoaderData, Link } from 'react-router-dom';
 import { fetcher, makeFetchUrl } from '../dataFetcher';
 import { FetchCategories, ProductData } from '../types/global';
-import { useState, useEffect, ChangeEvent, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Cart } from '../cart';
 import { CartBtn } from '../components/buttons';
-import { ItemInSearch } from '../components/itemsInDisplay';
-import { debounce } from '../utils';
+import { SearchBar } from '../components/searchBar';
 
 export async function loader() {
   try {
@@ -46,30 +45,12 @@ export default function Root() {
   const [cart, setCart] = useState<Cart | null>(null);
   const [itemsInCart, setItemsInCart] = useState(0);
   const { store } = useLoaderData<{ store: Store }>();
-  const [searchItems, setSearchItems] = useState<ProductData[]>([]);
-  const searchField = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setCart(() => new Cart(store));
   }, [store]);
 
   const context = { store, cart, setItemsInCart };
-
-  const debounceSearch = debounce<ChangeEvent<HTMLInputElement>>(() => {
-    if (!searchField.current) {
-      return;
-    }
-    const foundItems = store.lookFor(searchField.current.value, 10);
-    setSearchItems(searchField.current.value === '' ? [] : foundItems);
-  }, 500);
-
-  const cleanSearch = () => {
-    if (!searchField.current) {
-      return;
-    }
-    searchField.current.value = '';
-    setSearchItems([]);
-  };
 
   return (
     <>
@@ -81,25 +62,11 @@ export default function Root() {
               <span aria-hidden="true">Sh[oooo]ping!</span>
             </h1>
           </Link>
-          <form
-            id="search-bar"
-            role="search"
-            aria-label="Buscar productos en la tienda"
-          >
-            <input
-              type="search"
-              id="q"
-              aria-label="Buscar productos"
-              placeholder="Buscar"
-              name="q"
-              onChange={debounceSearch}
-              ref={searchField}
-            />
-            <div id="search-spinner" aria-hidden="true"></div>
-            <div className="sr-only" aria-live="polite"></div>
-          </form>
           <nav className="main-nav" aria-label="Navegación principal">
             <ul>
+              <li>
+                <SearchBar />
+              </li>
               <li>
                 <a href={'/about/'}>Sobre nosotros</a>
               </li>
@@ -127,13 +94,6 @@ export default function Root() {
           </ul>
         </nav>
       </header>
-      {searchItems && (
-        <div onClick={cleanSearch}>
-          {searchItems.map((item) => (
-            <ItemInSearch key={item.id} item={item} />
-          ))}
-        </div>
-      )}
       <main id="content">
         <Outlet context={context} />
       </main>

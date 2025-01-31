@@ -1,4 +1,4 @@
-import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import { Store } from '../store';
 import { useEffect, useState } from 'react';
 import { ProductData } from '../types/global';

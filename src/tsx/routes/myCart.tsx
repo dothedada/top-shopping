@@ -39,7 +39,7 @@ export default function MyCart() {
           <button type="button">Pagar</button>
         </>
       )}
-      <RelatedItems presentCategories={[...presentCategories]} />
+      <RelatedItems presentCategories={[...presentCategories]} id={-1} />
     </>
   );
 }

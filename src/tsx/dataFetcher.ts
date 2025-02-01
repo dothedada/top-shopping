@@ -1,3 +1,5 @@
+import { Cart } from './cart';
+import { Store } from './store';
 import {
   FetchReturn,
   FetchError,
@@ -71,4 +73,39 @@ const fetcher = async (
   return { loaded, onError, data };
 };
 
-export { fetcher, makeFetchUrl, makeFetchItemUrl };
+async function loader() {
+  try {
+    const store = new Store();
+    const controllerCategories = new AbortController();
+    const { data: dataCategories, onError: onErrorCategories } = await fetcher(
+      makeFetchUrl(true),
+      controllerCategories,
+    );
+
+    if (onErrorCategories && onErrorCategories[0]) {
+      throw new Error(
+        `error while loading categories: ${onErrorCategories[1]}`,
+      );
+    }
+
+    const controllerItems = new AbortController();
+
+    const { data: items, onError: onErrorItems } = await fetcher(
+      makeFetchUrl(),
+      controllerItems,
+    );
+
+    if (onErrorItems && onErrorItems[0]) {
+      throw new Error(`error while loading items: ${onErrorItems[1]}`);
+    }
+    store.addCategories(dataCategories as FetchCategories);
+    store.addItems(items as ProductData[]);
+
+    const cart = new Cart(store);
+    return { store, cart };
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export { fetcher, makeFetchUrl, makeFetchItemUrl, loader };

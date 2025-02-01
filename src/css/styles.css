@@ -11,6 +11,11 @@
   }
 }
 
+img {
+  max-width: 400px;
+  aspect-ratio: 1;
+}
+
 .hidden,
 [hidden] {
   display: none !important;

@@ -1,10 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Root, { loader as rootLoader } from './root';
+import Root from './root';
 import CategoryPage from './categoryPage';
 import ErrorPage from './errorPage';
 import ProductDetail from './productPage';
 import MyCart from './myCart';
 import Home from './homePage';
+import { loader as rootLoader } from '../dataFetcher';
 
 export const route = createBrowserRouter([
   {

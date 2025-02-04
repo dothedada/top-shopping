@@ -1,6 +1,6 @@
 import { Store } from '../store';
 import { NavLink, Outlet, useLoaderData, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Cart } from '../cart';
 import { CartBtn } from '../components/buttons';
 import { SearchBar } from '../components/searchBar';
@@ -21,16 +21,16 @@ export default function Root() {
               <span aria-hidden="true">Sh[oooo]ping!</span>
             </h1>
           </Link>
-          <SearchBar />
           <nav className="main-nav" aria-label="Navegación principal">
             <ul>
               <li>
-                <a href={'/about/'}>Sobre nosotros</a>
+                <SearchBar />
               </li>
               <li>
-                <Link to={'/cart/'}>
-                  <CartBtn itemsInCart={itemsInCart} />
-                </Link>
+                <Link to={'/about/'}>Sobre nosotros</Link>
+              </li>
+              <li>
+                <CartBtn itemsInCart={itemsInCart} />
               </li>
             </ul>
           </nav>

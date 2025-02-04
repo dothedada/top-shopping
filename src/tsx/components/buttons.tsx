@@ -2,14 +2,15 @@ import { useOutletContext } from 'react-router-dom';
 import { Cart } from '../cart';
 import { ProductData } from '../types/global';
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 export function CartBtn({ itemsInCart }: { itemsInCart: number }) {
   return (
-    <div>
+    <Link to={'/cart/'}>
       <span className="sr-only">icon</span>
       <span>{itemsInCart > 0 && itemsInCart}</span>
       <span>Ir al carrito de compras</span>
-    </div>
+    </Link>
   );
 }
 

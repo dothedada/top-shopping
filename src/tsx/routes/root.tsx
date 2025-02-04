@@ -21,13 +21,13 @@ export default function Root() {
               <span aria-hidden="true">Sh[oooo]ping!</span>
             </h1>
           </Link>
-          <nav className="main-nav" aria-label="Navegación principal">
+          <nav className="main-nav" aria-label="Main menu">
             <ul>
-              <li>
+              <li className="main-search">
                 <SearchBar />
               </li>
               <li>
-                <Link to={'/about/'}>Sobre nosotros</Link>
+                <Link to={'/about/'}>Us</Link>
               </li>
               <li>
                 <CartBtn itemsInCart={itemsInCart} />
@@ -36,7 +36,7 @@ export default function Root() {
           </nav>
         </div>
 
-        <nav aria-label="Categorías de productos">
+        <nav className="category-nav" aria-label="Categorías de productos">
           <ul>
             {store.allCategories.map((category: string) => (
               <li key={category}>

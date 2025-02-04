@@ -2,6 +2,8 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { ProductData } from '../types/global';
 import { Store } from '../store';
 import { ItemInCartOperations } from './buttons';
+import { useMemo, useRef } from 'react';
+import { Cart } from '../cart';
 
 export function ItemCard({ item }: { item: ProductData }) {
   if (!item) {
@@ -20,12 +22,13 @@ export function ItemCard({ item }: { item: ProductData }) {
 }
 
 export function ItemInHome({ item }: { item: ProductData }) {
+  const { cart } = useOutletContext<{ cart: Cart }>();
   return (
     <div className="deck__card">
       <img src={item.image} alt={item.title} />
       <h3>{item.title}</h3>
       <Link to={`/item/${item.id}`}>Ver más</Link>
-      <ItemInCartOperations item={item} amount={0} />
+      <ItemInCartOperations item={item} amount={cart.getItemAmount(item.id)} />
     </div>
   );
 }
@@ -48,15 +51,22 @@ export function RelatedItems({
   id: number | undefined;
 }) {
   const { store } = useOutletContext<{ store: Store }>();
+
+  const randomItemsRef = useRef<number[] | null>(null);
+  if (!randomItemsRef.current) {
+    randomItemsRef.current = store.getRandomItemsIds(
+      5,
+      [...presentCategories],
+      id ?? -1,
+    );
+  }
   return (
     <>
       <h3>Tal vez te pueda interezar... </h3>
-      {store
-        .getRandomItemsIds(5, [...presentCategories], id ?? -1)
-        .map((itemId) => {
-          const item = store.getItem(itemId) as ProductData;
-          return <ItemCard key={itemId} item={item} />;
-        })}
+      {randomItemsRef.current.map((itemId) => {
+        const item = store.getItem(itemId) as ProductData;
+        return <ItemCard key={itemId} item={item} />;
+      })}
     </>
   );
 }

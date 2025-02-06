@@ -50,7 +50,10 @@ a {
   display: flex;
   flex-wrap: wrap;
   padding: 0.5rem 2rem;
-  border-bottom: 1px solid var(--txt);
+  margin: 0 auto;
+  row-gap: 1rem;
+  column-gap: 2rem;
+  max-width: 1200px;
 
   > * {
     outline: solid 1px red;
@@ -58,10 +61,12 @@ a {
 
   .main-nav {
     flex: 1 1 400px;
+    flex-wrap: wrap;
     align-items: center;
 
     .main-search {
       flex: 1;
+      min-width: 200px;
 
       input {
         width: 100%;
@@ -71,10 +76,29 @@ a {
 
     ul {
       display: flex;
+      flex-wrap: wrap;
+      min-width: 150px;
       list-style: none;
       gap: 1rem;
       align-items: center;
     }
+  }
+}
+
+.category-nav {
+  background-color: var(--txt);
+
+  & ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 1rem;
+    padding: 0.5rem 2rem;
+    justify-content: center;
+  }
+
+  & a {
+    color: var(--bkg);
   }
 }
 

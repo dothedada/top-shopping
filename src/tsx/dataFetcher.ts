@@ -26,7 +26,7 @@ const itemBuilder = (item: Record<string, string>): ProductData => ({
   image: item.image,
   category: item.category,
   brand: item.brand,
-  discount: +item.discount,
+  discount: +item.discount > 5 ? +item.discount : 0,
 });
 
 const fetcher = async (

@@ -50,14 +50,10 @@ a {
   display: flex;
   flex-wrap: wrap;
   padding: 0.5rem 2rem;
-  margin: 0 auto;
+  margin: 0 auto 1.5rem;
   row-gap: 1rem;
   column-gap: 2rem;
   max-width: 1200px;
-
-  > * {
-    outline: solid 1px red;
-  }
 
   .main-nav {
     flex: 1 1 400px;
@@ -65,8 +61,7 @@ a {
     align-items: center;
 
     .main-search {
-      flex: 1;
-      min-width: 200px;
+      flex: 1 0 250px;
 
       input {
         width: 100%;
@@ -99,6 +94,12 @@ a {
 
   & a {
     color: var(--bkg);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
   }
 }
 

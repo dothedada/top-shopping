@@ -15,9 +15,16 @@ export function ItemList({ item }: { item: ProductData }) {
       <div>{item.brand}</div>
       <div>{amount}</div>
       <div>
-        Antes: <del>{item.price}</del> Ahora: {discountPrice}
+        {item.discount > 0 ? (
+          <>
+            Costo unidad: <del>${item.price}</del> ${discountPrice}
+            <br />
+            descuento: {item.discount}%<br />
+          </>
+        ) : (
+          <>Costo unidad: ${item.price}</>
+        )}
       </div>
-      <div>{item.discount}%</div>
       <div>{item.category}</div>
       <ItemInCartOperations item={item} amount={amount} />
       <p>

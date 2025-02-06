@@ -1,7 +1,7 @@
 import { Link, useOutletContext } from 'react-router-dom';
 import { ProductData } from '../types/global';
 import { Store } from '../store';
-import { ItemInCartOperations } from './buttons';
+import { ItemInCartOperations, Price } from './buttons';
 import { useRef } from 'react';
 import { Cart } from '../cart';
 
@@ -28,8 +28,30 @@ export function ItemCard({ item }: { item: ProductData }) {
   );
 }
 
-export function ItemInDetail({ item }: { item: ProductData }) {
-  return;
+export function ItemInDetail({ item, id }: { item: ProductData; id: number }) {
+  const { cart } = useOutletContext<{ cart: Cart }>();
+  return (
+    <>
+      {!id || !item ? (
+        <h1>Paila</h1>
+      ) : (
+        <div>
+          <h2>{item.title}</h2>
+          <Price item={item} />
+          <img src={item.image} alt="" />
+          <p>{item.description}</p>
+          <ItemInCartOperations
+            item={item}
+            amount={cart.getItemAmount(+id) || 0}
+          />
+        </div>
+      )}
+      <RelatedItems
+        presentCategories={item ? [item.category] : []}
+        id={item?.id}
+      />
+    </>
+  );
 }
 
 export function ItemInHome({ item }: { item: ProductData }) {

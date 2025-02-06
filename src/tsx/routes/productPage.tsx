@@ -5,7 +5,7 @@ import { ProductData } from '../types/global';
 import { Cart } from '../cart';
 import { ItemInCartOperations } from '../components/buttons';
 import { fetcher, makeFetchItemUrl } from '../dataFetcher';
-import { RelatedItems } from '../components/itemsInDisplay';
+import { ItemInDetail, RelatedItems } from '../components/itemsInDisplay';
 
 export default function ProductDetail() {
   const { store, cart } = useOutletContext<{ store: Store; cart: Cart }>();
@@ -32,24 +32,5 @@ export default function ProductDetail() {
     }
   }, [id, store]);
 
-  return (
-    <>
-      {!id || !item ? (
-        <h1>Paila</h1>
-      ) : (
-        <>
-          <h2>{item?.title}</h2>
-          <p>{item?.description}</p>
-          <ItemInCartOperations
-            item={item}
-            amount={cart.getItemAmount(+id) || 0}
-          />
-        </>
-      )}
-      <RelatedItems
-        presentCategories={item ? [item.category] : []}
-        id={item?.id}
-      />
-    </>
-  );
+  return <ItemInDetail item={item} id={id} />;
 }

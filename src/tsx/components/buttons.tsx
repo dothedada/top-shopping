@@ -21,6 +21,23 @@ export function CartBtn({ itemsInCart }: { itemsInCart: number }) {
   );
 }
 
+export function Price({ item }: { item: ProductData }) {
+  const discountPrice = Math.floor(item.price * (100 - item.discount) * 0.01);
+  return (
+    <div>
+      {item.discount > 0 ? (
+        <>
+          Cost: <del>${item.price}</del> ${discountPrice}
+          <br />
+          discount: {item.discount}%<br />
+        </>
+      ) : (
+        <>Cost: ${item.price}</>
+      )}
+    </div>
+  );
+}
+
 export function ItemInCartOperations({
   item,
   amount = 0,

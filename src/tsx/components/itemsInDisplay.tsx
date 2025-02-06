@@ -18,7 +18,7 @@ export function ItemCard({ item }: { item: ProductData }) {
     <div className="deck__card">
       <Link to={`/item/${item.id}`}>
         <img src={item.image} alt={item.title} />
-        <h3>{itemName}</h3>
+        <h3 className="card__title">{itemName}</h3>
       </Link>
       <ItemInCartOperations
         item={item}

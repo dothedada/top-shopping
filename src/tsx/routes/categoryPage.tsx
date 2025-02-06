@@ -24,12 +24,17 @@ export default function CategoryPage() {
 
   return (
     <>
-      <h1>{categoryName}</h1>
-      <div className="deck">
-        {items.map((item) => (
-          <ItemCard item={item} key={item.id} />
-        ))}
-      </div>
+      {items.length ? (
+        <div className="deck">
+          {items.map((item) => (
+            <ItemCard item={item} key={item.id} />
+          ))}
+        </div>
+      ) : (
+        <h2 className="warn">
+          Sorry, there is no {categoryName} items available
+        </h2>
+      )}
     </>
   );
 }

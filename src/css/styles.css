@@ -109,21 +109,46 @@ a {
 }
 
 .deck {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  row-gap: 4rem;
+  margin: 0 1rem 4rem;
 }
+
+.warn {
+  font-size: 3rem;
+  text-align: center;
+  padding: 0 2rem;
+  color: var(--accent);
+}
+
 .deck__card {
-  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .card__title {
+    text-align: center;
+    margin: 0 0 0.5rem;
+  }
 
   img {
+    padding: 0 1rem;
     width: 100%;
     filter: grayscale(100%);
-    mix-blend-mode: multiply;
+    transition: filter 0.5s ease-in-out;
+
+    &:hover {
+      filter: none;
+    }
   }
 }
 
 img {
+  mix-blend-mode: multiply;
   max-width: 400px;
+  object-fit: contain;
   aspect-ratio: 1;
 }
 

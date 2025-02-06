@@ -7,9 +7,16 @@ import { Link } from 'react-router-dom';
 export function CartBtn({ itemsInCart }: { itemsInCart: number }) {
   return (
     <Link to={'/cart/'}>
-      <span className="sr-only">icon</span>
-      <span>{itemsInCart > 0 && itemsInCart}</span>
-      <span>Ir al carrito de compras</span>
+      <span className="sr-only">Go to cart</span>
+      <span className="material-symbols-outlined" aria-hidden="true">
+        shopping_cart
+      </span>
+      {itemsInCart > 0 && (
+        <>
+          {itemsInCart}
+          <span className="sr-only">Items in cart</span>
+        </>
+      )}
     </Link>
   );
 }

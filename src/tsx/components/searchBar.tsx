@@ -31,14 +31,13 @@ export function SearchBar() {
       <form
         id="search-bar"
         role="search"
-        aria-label="Buscar productos en la tienda"
+        aria-label="Search for products in the store"
       >
         <input
           type="search"
           id="q"
-          aria-label="Buscar productos"
-          placeholder="Buscar"
-          name="q"
+          aria-label="Search products"
+          placeholder="Search"
           onChange={debounceSearch}
           ref={searchField}
         />

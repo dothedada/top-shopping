@@ -34,12 +34,15 @@ export function ItemInHome({ item }: { item: ProductData }) {
 }
 
 export function ItemInSearch({ item }: { item: ProductData }) {
+  const itemName =
+    item.title.slice(0, item.title.length > 25 ? 25 : item.title.length) +
+    '... View more';
   return (
-    <div>
-      <h3>{item.title}</h3>
-      <p>{item.id}</p>
-      <Link to={`/item/${item.id}`}>Ver mas</Link>
-    </div>
+    <Link to={`/item/${item.id}`}>
+      <p>
+        <strong>{itemName}</strong>
+      </p>
+    </Link>
   );
 }
 

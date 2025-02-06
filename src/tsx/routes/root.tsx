@@ -27,7 +27,7 @@ export default function Root() {
                 <SearchBar />
               </li>
               <li>
-                <Link to={'/about/'}>Us</Link>
+                <Link to={'/about/'}>About us</Link>
               </li>
               <li>
                 <CartBtn itemsInCart={itemsInCart} />

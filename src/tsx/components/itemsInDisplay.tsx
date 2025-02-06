@@ -57,14 +57,17 @@ export function ItemInDetail({ item, id }: { item: ProductData; id: number }) {
 export function ItemInHome({ item }: { item: ProductData }) {
   const { cart } = useOutletContext<{ cart: Cart }>();
   return (
-    <div className="deck__card">
+    <div className="home__card">
       <img src={item.image} alt={item.title} />
-      <h3>{item.title}</h3>
-      <Link to={`/item/${item.id}`}>Ver más</Link>
-      <ItemInCartOperations
-        item={item}
-        amount={cart.getItemAmount(item.id) ?? 0}
-      />
+      <div className="data">
+        <Link to={`/item/${item.id}`}>
+          <h3>{item.title}</h3>
+        </Link>
+        <ItemInCartOperations
+          item={item}
+          amount={cart.getItemAmount(item.id) ?? 0}
+        />
+      </div>
     </div>
   );
 }

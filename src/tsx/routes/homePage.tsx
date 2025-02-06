@@ -12,8 +12,6 @@ export default function Home() {
   }
   return (
     <>
-      <h1>carajo</h1>
-      <p>123</p>
       {randomItemsRef.current.map((id) => {
         const item = store.getItem(id)!;
         return <ItemInHome key={id} item={item} />;

@@ -145,6 +145,19 @@ a {
   }
 }
 
+.home__card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1rem;
+  align-items: center;
+
+  img {
+    padding: 0 1rem;
+    width: 100%;
+    transition: filter 0.5s ease-in-out;
+  }
+}
+
 img {
   mix-blend-mode: multiply;
   max-width: 400px;

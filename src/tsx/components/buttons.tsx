@@ -23,7 +23,7 @@ export function CartBtn({ itemsInCart }: { itemsInCart: number }) {
 
 export function ItemInCartOperations({
   item,
-  amount,
+  amount = 0,
 }: {
   item: ProductData;
   amount: number;

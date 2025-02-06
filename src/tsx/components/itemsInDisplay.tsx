@@ -2,23 +2,34 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { ProductData } from '../types/global';
 import { Store } from '../store';
 import { ItemInCartOperations } from './buttons';
-import { useMemo, useRef } from 'react';
+import { useRef } from 'react';
 import { Cart } from '../cart';
 
 export function ItemCard({ item }: { item: ProductData }) {
+  const { cart } = useOutletContext<{ cart: Cart }>();
   if (!item) {
-    return <div>No se pudo obtener la informacion</div>;
+    throw new Error(`No item data for: ${item}`);
   }
+  const itemName =
+    item.title.slice(0, item.title.length > 20 ? 20 : item.title.length) +
+    '...';
 
   return (
     <div className="deck__card">
-      <img src={item.image} alt={item.title} />
-      <h3>{item.title}</h3>
-      <p>{item.description}</p>
-      <Link to={`/item/${item.id}`}>Ver más</Link>
-      <ItemInCartOperations item={item} amount={0} />
+      <Link to={`/item/${item.id}`}>
+        <img src={item.image} alt={item.title} />
+        <h3>{itemName}</h3>
+      </Link>
+      <ItemInCartOperations
+        item={item}
+        amount={cart.getItemAmount(item.id) ?? 0}
+      />
     </div>
   );
+}
+
+export function ItemInDetail({ item }: { item: ProductData }) {
+  return;
 }
 
 export function ItemInHome({ item }: { item: ProductData }) {
@@ -28,7 +39,10 @@ export function ItemInHome({ item }: { item: ProductData }) {
       <img src={item.image} alt={item.title} />
       <h3>{item.title}</h3>
       <Link to={`/item/${item.id}`}>Ver más</Link>
-      <ItemInCartOperations item={item} amount={cart.getItemAmount(item.id)} />
+      <ItemInCartOperations
+        item={item}
+        amount={cart.getItemAmount(item.id) ?? 0}
+      />
     </div>
   );
 }
@@ -65,7 +79,7 @@ export function RelatedItems({
   }
   return (
     <>
-      <h3>Tal vez te pueda interezar... </h3>
+      <h3>You may also like... </h3>
       {randomItemsRef.current.map((itemId) => {
         const item = store.getItem(itemId) as ProductData;
         return <ItemCard key={itemId} item={item} />;

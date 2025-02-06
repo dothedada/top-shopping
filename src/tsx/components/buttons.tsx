@@ -21,18 +21,26 @@ export function CartBtn({ itemsInCart }: { itemsInCart: number }) {
   );
 }
 
-export function Price({ item }: { item: ProductData }) {
+export function Price({
+  item,
+  className = '',
+}: {
+  item: ProductData;
+  className: string;
+}) {
   const discountPrice = Math.floor(item.price * (100 - item.discount) * 0.01);
   return (
-    <div>
+    <div className={className}>
       {item.discount > 0 ? (
         <>
-          Cost: <del>${item.price}</del> ${discountPrice}
+          <del>${item.price}</del>
           <br />
-          discount: {item.discount}%<br />
+          {item.discount}% OFF
+          <br />
+          <span className="price">${discountPrice}</span>
         </>
       ) : (
-        <>Cost: ${item.price}</>
+        <span className="price">${item.price}</span>
       )}
     </div>
   );
@@ -81,15 +89,33 @@ export function ItemInCartOperations({
     <>
       {amount > 0 ? (
         <>
-          <button onClick={addOne}>+</button>
-          <input type="number" min="1" onBlur={changeAmount} ref={amountRef} />
-          <button onClick={substractOne} disabled={amount <= 1}>
-            -
+          <button className="buy__edit" onClick={addOne}>
+            <span className="sr-only">add one to my cart</span>
+            <span aria-hidden="true">+</span>
           </button>
-          <button onClick={removeItem}>Quitar del carrito</button>
+          <input
+            className="buy__input"
+            type="number"
+            min="1"
+            max="20"
+            onBlur={changeAmount}
+            ref={amountRef}
+          />
+          {amount === 1 ? (
+            <button className="buy__edit" onClick={removeItem}>
+              Remove from cart
+            </button>
+          ) : (
+            <button className="buy__edit" onClick={substractOne}>
+              <span className="sr-only">remove one from my cart</span>
+              <span aria-hidden="true">-</span>
+            </button>
+          )}
         </>
       ) : (
-        <button onClick={addOne}>Añadir al carrito</button>
+        <button className="buy" onClick={addOne}>
+          add to cart
+        </button>
       )}
     </>
   );

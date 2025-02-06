@@ -36,7 +36,7 @@ export default function Root() {
           </nav>
         </div>
 
-        <nav className="category-nav" aria-label="Categorías de productos">
+        <nav className="category-nav" aria-label="Product category">
           <ul>
             {store.allCategories.map((category: string) => (
               <li key={category}>

@@ -62,6 +62,7 @@ export function ItemInHome({ item }: { item: ProductData }) {
       <div className="data">
         <Link to={`/item/${item.id}`}>
           <h3>{item.title}</h3>
+          <Price className="price home" item={item} />
         </Link>
         <ItemInCartOperations
           item={item}

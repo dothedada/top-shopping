@@ -80,7 +80,7 @@ export function ItemInCartOperations({
   };
 
   return (
-    <div>
+    <div className="amount-bar">
       {amount > 0 ? (
         <>
           <button className="buy__edit" onClick={addOne}>

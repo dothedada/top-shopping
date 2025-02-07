@@ -9,17 +9,28 @@ export function ItemList({ item }: { item: ProductData }) {
 
   const itemSubtotal = cart.itemTotalCost(item.id).discount;
 
+  const title =
+    item.title.slice(0, item.title.length > 30 ? 30 : item.title.length) +
+    '...';
+
+  const unitPrice =
+    item.discount > 5
+      ? Math.floor(item.price * (100 - item.discount) * 0.01)
+      : item.price;
+
   return (
-    <>
-      <div>{item.brand}</div>
-      <div>{amount}</div>
-      <Price item={item} />
-      <div>{item.category}</div>
+    <div className="cart__items">
+      <div>{title}</div>
+      <div>${unitPrice}</div>
+      {item.discount > 5 && <div>{item.discount}% OFF</div>}
+      <div>
+        {amount} unit{amount > 1 ? 's' : ''}
+      </div>
       <ItemInCartOperations item={item} amount={amount} />
       <p>
-        <strong>Subtotal: {itemSubtotal}</strong>
+        <strong>${itemSubtotal}</strong>
       </p>
-    </>
+    </div>
   );
 }
 

@@ -22,22 +22,23 @@ export default function MyCart() {
 
   return (
     <>
-      <h2>Tu carrito</h2>
       {cart.isNotEmpty ? (
         cart.getItems.map((item) => <ItemList key={item.id} item={item} />)
       ) : (
-        <EmptyCart message="Está vacío" />
+        <EmptyCart message="Your cart is empty" />
       )}
       {cart.isNotEmpty && (
-        <>
-          <p>
-            <strong>Total:</strong>
-            {cart.totalCost.pay}
-            <strong>Ahorraste:</strong>
-            {cart.totalCost.savings}
+        <div className="cart__total">
+          <p className="cart__price">
+            Total
+            <strong> ${cart.totalCost.pay}</strong>
           </p>
-          <button type="button">Pagar</button>
-        </>
+          <p className="cart__savings">
+            you will save
+            <strong> ${cart.totalCost.savings}</strong>
+          </p>
+          <button type="button">Checkout</button>
+        </div>
       )}
       <RelatedItems presentCategories={[...presentCategories]} id={-1} />
     </>

@@ -148,6 +148,33 @@ a {
   }
 }
 
+.search__results {
+  position: relative;
+}
+
+.search__list {
+  position: absolute;
+
+  background-color: var(--accent);
+  width: 100%;
+  z-index: 10;
+  padding: 1rem 3ch;
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+
+  > *::before {
+    position: absolute;
+    content: '>';
+    left: 1ch;
+  }
+
+  a:hover {
+    color: var(--bkg);
+  }
+}
+
 .category-nav {
   background-color: var(--txt);
   margin: 0 0 2rem;

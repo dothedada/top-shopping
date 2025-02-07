@@ -76,13 +76,14 @@ export function ItemInHome({ item }: { item: ProductData }) {
 }
 
 export function ItemInSearch({ item }: { item: ProductData }) {
-  const itemName =
-    item.title.slice(0, item.title.length > 25 ? 25 : item.title.length) +
-    '... View more';
+  const itemName = item.title.slice(
+    0,
+    item.title.length > 25 ? 25 : item.title.length,
+  );
   return (
     <Link to={`/item/${item.id}`}>
       <p>
-        <strong>{itemName}</strong>
+        {itemName}... in {item.category} // view more
       </p>
     </Link>
   );

@@ -44,16 +44,18 @@ export function SearchBar() {
         <div id="search-spinner" aria-hidden="true"></div>
         <div className="sr-only" aria-live="polite"></div>
       </form>
-      {searchField.current?.value &&
-        (searchItems.length ? (
-          <div onClick={cleanSearch}>
-            {searchItems.map((item) => (
-              <ItemInSearch key={item.id} item={item} />
-            ))}
-          </div>
-        ) : (
-          <h1>Sin items</h1>
-        ))}
+      <div className="search__results">
+        {searchField.current?.value &&
+          (searchItems.length ? (
+            <div className="search__list" onClick={cleanSearch}>
+              {searchItems.map((item) => (
+                <ItemInSearch key={item.id} item={item} />
+              ))}
+            </div>
+          ) : (
+            <h1>Sin items</h1>
+          ))}
+      </div>
     </>
   );
 }

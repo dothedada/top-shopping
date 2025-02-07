@@ -3,12 +3,11 @@ import { Store } from '../store';
 import { useEffect, useState } from 'react';
 import { ProductData } from '../types/global';
 import { Cart } from '../cart';
-import { ItemInCartOperations } from '../components/buttons';
 import { fetcher, makeFetchItemUrl } from '../dataFetcher';
-import { ItemInDetail, RelatedItems } from '../components/itemsInDisplay';
+import { ItemInDetail } from '../components/itemsInDisplay';
 
 export default function ProductDetail() {
-  const { store, cart } = useOutletContext<{ store: Store; cart: Cart }>();
+  const { store } = useOutletContext<{ store: Store; cart: Cart }>();
   const { id } = useParams();
   const [item, setItem] = useState<ProductData | undefined>(undefined);
 
@@ -32,5 +31,9 @@ export default function ProductDetail() {
     }
   }, [id, store]);
 
-  return <ItemInDetail item={item} id={id} />;
+  return !item || !id ? (
+    <div>Error loading item</div>
+  ) : (
+    <ItemInDetail item={item} id={+id} />
+  );
 }

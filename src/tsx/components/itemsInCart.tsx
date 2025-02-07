@@ -1,7 +1,7 @@
 import { useOutletContext } from 'react-router-dom';
 import { ProductData } from '../types/global';
 import { Cart } from '../cart';
-import { ItemInCartOperations, Price } from './buttons';
+import { ItemInCartOperations } from './buttons';
 
 export function ItemList({ item }: { item: ProductData }) {
   const { cart } = useOutletContext<{ cart: Cart }>();

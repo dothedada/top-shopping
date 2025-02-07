@@ -27,9 +27,6 @@ export default function Root() {
                 <SearchBar />
               </li>
               <li>
-                <Link to={'/about/'}>About us</Link>
-              </li>
-              <li>
                 <CartBtn itemsInCart={itemsInCart} />
               </li>
             </ul>
@@ -41,7 +38,7 @@ export default function Root() {
             {store.allCategories.map((category: string) => (
               <li key={category}>
                 <NavLink
-                  to={`/${category}`}
+                  to={`/category/${category}`}
                   className={({ isActive }) => (isActive ? 'active' : '')}
                 >
                   {category}

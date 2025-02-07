@@ -175,6 +175,11 @@ a {
   }
 }
 
+.active {
+  color: var(--accent) !important;
+  font-weight: bold;
+}
+
 .category-nav {
   background-color: var(--txt);
   margin: 0 0 2rem;

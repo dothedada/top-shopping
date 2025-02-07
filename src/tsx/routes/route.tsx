@@ -21,7 +21,7 @@ export const route = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/:categoryName',
+        path: '/category/:categoryName',
         element: <CategoryPage />,
       },
       {

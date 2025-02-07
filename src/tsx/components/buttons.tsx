@@ -21,16 +21,10 @@ export function CartBtn({ itemsInCart }: { itemsInCart: number }) {
   );
 }
 
-export function Price({
-  item,
-  className = '',
-}: {
-  item: ProductData;
-  className: string;
-}) {
+export function Price({ item }: { item: ProductData }) {
   const discountPrice = Math.floor(item.price * (100 - item.discount) * 0.01);
   return (
-    <div className={className}>
+    <div>
       {item.discount > 0 ? (
         <>
           <del>${item.price}</del>
@@ -86,11 +80,12 @@ export function ItemInCartOperations({
   };
 
   return (
-    <>
+    <div>
       {amount > 0 ? (
         <>
           <button className="buy__edit" onClick={addOne}>
             <span className="sr-only">add one to my cart</span>
+
             <span aria-hidden="true">+</span>
           </button>
           <input
@@ -103,7 +98,7 @@ export function ItemInCartOperations({
           />
           {amount === 1 ? (
             <button className="buy__edit" onClick={removeItem}>
-              Remove from cart
+              Remove
             </button>
           ) : (
             <button className="buy__edit" onClick={substractOne}>
@@ -117,6 +112,6 @@ export function ItemInCartOperations({
           add to cart
         </button>
       )}
-    </>
+    </div>
   );
 }

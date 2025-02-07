@@ -35,15 +35,17 @@ export function ItemInDetail({ item, id }: { item: ProductData; id: number }) {
       {!id || !item ? (
         <h1>Paila</h1>
       ) : (
-        <div>
-          <h2>{item.title}</h2>
-          <Price item={item} />
+        <div className="item__detail">
           <img src={item.image} alt="" />
-          <p>{item.description}</p>
-          <ItemInCartOperations
-            item={item}
-            amount={cart.getItemAmount(+id) || 0}
-          />
+          <div className="item__data">
+            <h2>{item.title}</h2>
+            <p>{item.description}</p>
+            <Price item={item} />
+            <ItemInCartOperations
+              item={item}
+              amount={cart.getItemAmount(+id) || 0}
+            />
+          </div>
         </div>
       )}
       <RelatedItems
@@ -104,12 +106,31 @@ export function RelatedItems({
     );
   }
   return (
-    <>
+    <div className="related">
       <h3>You may also like... </h3>
-      {randomItemsRef.current.map((itemId) => {
-        const item = store.getItem(itemId) as ProductData;
-        return <ItemCard key={itemId} item={item} />;
-      })}
-    </>
+      <div className="related__cards">
+        {randomItemsRef.current.map((itemId) => {
+          const item = store.getItem(itemId) as ProductData;
+          return <ItemRelated key={itemId} item={item} />;
+        })}
+      </div>
+    </div>
+  );
+}
+export function ItemRelated({ item }: { item: ProductData }) {
+  if (!item) {
+    throw new Error(`No item data for: ${item}`);
+  }
+  const itemName =
+    item.title.slice(0, item.title.length > 20 ? 20 : item.title.length) +
+    '...';
+
+  return (
+    <div className="related__card">
+      <Link to={`/item/${item.id}`}>
+        <img src={item.image} alt={item.title} />
+        <h3 className="card__title">{itemName}</h3>
+      </Link>
+    </div>
   );
 }
